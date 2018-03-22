@@ -1,19 +1,36 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import Person from '@/components/person/Main'
+import FocusMain from '@/components/focus/Main'
+import PersonMain from '@/components/person/Main'
+import Footer from '@/components/common/Tabbar'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
-	routes: [{
-			path: '/',
-			name: 'HelloWorld',
-			component: HelloWorld
-		}, {
-			path: '/person',
-			name: 'Person',
-			component: Person
-		}
-	]
+    // mode: "history",
+    routes: [
+        {
+            path: '/',
+            name: 'person',
+            components: {
+                default: PersonMain,
+                footer: Footer
+            }
+        }, {
+            path: '/person',
+            name: 'person',
+            components: {
+                default: PersonMain,
+                footer: Footer
+            }
+        }, {
+            path: '/focus',
+            name: 'focus',
+            components: {
+                default: FocusMain,
+                footer: Footer
+            }
+        }
+    ]
 })

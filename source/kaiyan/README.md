@@ -1,6 +1,6 @@
-# kayyan
+# kaiyan
 
-> school peoject
+> school project
 
 ## Build Setup
 
