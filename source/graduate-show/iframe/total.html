@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>整体情况</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .progress {
+            width: 360px;
+            height: 360px;
+            margin: 0 auto;
+        }
+        .detail {
+            width: 640px;
+            height: 400px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div id="total" class="progress"></div>
+<div id="detail" class="detail"></div>
+<script src="../static/js/echarts.min.js"></script>
+<script>
+    window.onload = function() {
+        var total = echarts.init(document.getElementById("total")),
+            detail = echarts.init(document.getElementById("detail")),
+            optionForTotal = {
+                tooltip : {
+                    formatter: "{a} <br/>{b} : {c}%"
+                },
+                series: [
+                    {
+                        name: '项目总进度',
+                        type: 'gauge',
+                        detail: {formatter:'{value}%'},
+                        data: [{value: 31, name: '完成率'}]
+                    }
+                ]
+            },
+            optionForDetail = {
+                title : {
+                    text: '每日具体进度柱状图',
+                    subtext: '预估进度'
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['前端','后台', '整体']
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : ['3-24', '3-25','3-26','3-27','3-28','3-29','3-30','3-31','4-01','4-02','4-03','4-04']
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'前端',
+                        type:'bar',
+                        data:[8.4, 7.6, 15, 20, 20, 12, 5.3, 0, 0, 0, 0],
+                        markPoint : {
+                            data : [
+                                {type : 'max', name: '最大值'},
+                                {type : 'min', name: '最小值'}
+                            ]
+                        },
+                        markLine : {
+                            data : [
+                                {type : 'average', name: '平均值'}
+                            ]
+                        }
+                    },
+                    {
+                        name:'后台',
+                        type:'bar',
+                        data:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        markPoint : {
+                            data : [
+                                {type : 'max', name: '最大值'},
+                                {type : 'min', name: '最小值'}
+                            ]
+                        },
+                        markLine : {
+                            data : [
+                                {type : 'average', name : '平均值'}
+                            ]
+                        }
+                    },
+                    {
+                        name:'整体',
+                        type:'bar',
+                        data:[8.4, 7.6, 15, 20, 20, 12, 5.3, 0, 0, 0, 0],
+                        markPoint : {
+                            data : [
+                                {type : 'max', name: '最大值'},
+                                {type : 'min', name: '最小值'}
+                            ]
+                        },
+                        markLine : {
+                            data : [
+                                {type : 'average', name : '平均值'}
+                            ]
+                        }
+                    }
+                ]
+            };
+        total.setOption(optionForTotal, true);
+        detail.setOption(optionForDetail, true);
+    }
+</script>
+</body>
+</html>

@@ -1,8 +1,0 @@
-<template>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <span class="badge">14</span>
-            Cras justo odio
-        </li>
-    </ul>
-</template>

@@ -1,0 +1,19 @@
+{
+    "code": "1",
+    "msg": "",
+    "data": [
+        {
+            "account": "879646529",
+            "nickname": "游学者、墨槿",
+            "head": "kaiyan/head/879646529.jpg",
+            "countWords": 12530,
+            "countLiked": 5478
+        }, {
+            "account": "879646528",
+            "nickname": "耗子爱骑车",
+            "head": "kaiyan/head/879646528.jpg",
+            "countWords": 2541,
+            "countLiked": 7478
+        }
+    ]
+}

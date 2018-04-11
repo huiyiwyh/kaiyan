@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>毕设汇报页面</title>
+    <link href="static/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="static/css/animate.min.css" rel="stylesheet" type="text/css">
+    <link href="static/css/init.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="client">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">开眼</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <a @click="togglePhone()" href="javascript:;">
+                            手机模型：
+                            <span v-if="phone.isShow === true">开</span>
+                            <span v-else>关</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a @click="show('summary')" href="javascript:;">项目概况</a></li>
+                    <li><a @click="show('plan')" href="javascript:;">时间安排</a></li>
+                    <li><a @click="show('total')" href="javascript:;">整体情况</a></li>
+                    <li class="dropdown">
+                        <a @click="show('report')" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            项目进展<span class="caret"></span>
+                        </a>
+                        <ul id="chooseReport" class="dropdown-menu">
+                            <li><a href="javascript:;" data-url="report-04-04.html">项目进展 18-04-04 第一期</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="javascript:;">详细设计文档</a></li>
+                    <li><a @click="show('er')" href="javascript:;">ER图</a></li>
+                    <li class="dropdown">
+                        <a @click="show('prop')" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            原型图<span class="caret"></span>
+                        </a>
+                        <ul id="chooseProp" class="dropdown-menu">
+                            <li><a href="javascript:;" data-url="focus.png">关注模块</a></li>
+                            <li><a href="javascript:;" data-url="more.png">发现模块</a></li>
+                            <li><a href="javascript:;" data-url="article.png">文章模块</a></li>
+                            <li><a href="javascript:;" data-url="my.png">我的模块</a></li>
+                            <li><a href="javascript:;" data-url="message.png">消息模块</a></li>
+                            <li><a href="javascript:;" data-url="search.png">搜索模块</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a @click="show('api')" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            接口文档<span class="caret"></span>
+                        </a>
+                        <ul id="chooseDocu" class="dropdown-menu">
+                            <li><a href="javascript:;" data-url="author.html">作者接口文档</a></li>
+                            <li><a href="javascript:;" data-url="subject.html">专题接口文档</a></li>
+                            <li><a href="javascript:;" data-url="blacklist.html">黑名单管理文档</a></li>
+                            <li role="separator" class="divider"></li>
+                            <!--<li><a href="javascript:;">Separated link</a></li>-->
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div id="phone" class="con-phone pull-left animated">
+                <img src="./static/img/phone-back.png" class="hidden-xs hidden-sm" />
+                <iframe class="phone" src="phone.html?#/focus/main"></iframe>
+            </div>
+            <ul id="document" class="con-other pull-right">
+                <li class="other-item animated" id="item-summary">
+                    <div class="panel">
+                        <div class="panel-heading">项目概况</div>
+                        <div class="panel-body">
+                            <iframe src="iframe/summary.html"></iframe>
+                        </div>
+                    </div>
+                </li>
+                <li class="sr-only other-item animated" id="item-plan">
+                    <div class="panel">
+                        <div class="panel-heading">时间安排</div>
+                        <div class="panel-body">
+                            <iframe src="iframe/plan.html"></iframe>
+                        </div>
+                    </div>
+                </li>
+                <li class="sr-only other-item animated" id="item-total">
+                    <div class="panel">
+                        <div class="panel-heading">整体情况</div>
+                        <div class="panel-body">
+                            <iframe src="iframe/total.html"></iframe>
+                        </div>
+                    </div>
+                </li>
+                <li class="sr-only other-item animated" id="item-report">
+                    <div class="panel">
+                        <div class="panel-heading" v-text="panel.title.report"></div>
+                        <div class="panel-body">
+                            <iframe id="docuReport" class="document" src="iframe/report/report-04-04.html"></iframe>
+                        </div>
+                    </div>
+                </li>
+                <li class="sr-only other-item animated" id="item-er">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <span>ER 图</span>
+                        </div>
+                        <div class="panel-body">
+                            <div class="pic-body">
+                                <img src="static/img/ER.png" />
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="sr-only other-item animated" id="item-api">
+                    <div class="panel">
+                        <div class="panel-heading" v-text="panel.title.api"></div>
+                        <div class="panel-body">
+                            <iframe id="docuFrame" class="document" src="iframe/api/author.html"></iframe>
+                        </div>
+                    </div>
+                </li>
+                <li class="sr-only other-item animated" id="item-prop">
+                    <div id="prototype" class="panel">
+                        <div class="panel-heading" v-text="panel.title.prop + '原型图'"></div>
+                        <div class="panel-body">
+                            <div class="pic-body">
+                                <img id="propImg" src="static/img/prototype-focus.png" />
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="static/js/jquery-1.11.2.min.js"></script>
+<script src="static/js/jquery.backstretch.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+<script src="static/js/vue.min.js"></script>
+<script>
+    var Client = new Vue({
+        el: "#client",
+        data: {
+            panel: {
+                last: "item-summary",
+                animateIn: ['bounceIn', 'bounceInRight', 'bounceInUp', 'fadeIn', 'fadeInRightBig', 'fadeInUpBig',
+                    'flipInX', 'flipInY', 'lightSpeedIn', 'rotateIn', 'rotateInDownRight', 'rotateInUpRight', 'slideInUp',
+                    'slideInRight', 'zoomIn', 'zoomInRight', 'zoomInUp', 'jackInTheBox'
+                ],
+                animateOut: ['bounceOut', 'bounceOutRight', 'bounceOutUp', 'fadeOut', 'fadeOutRightBig', 'fadeOutUpBig',
+                    'flipOutX', 'flipOutY', 'lightSpeedOut', 'rotateOut', 'rotateOutDownRight', 'rotateOutUpRight', 'slideOutUp',
+                    'slideOutRight', 'zoomOut', 'zoomOutRight', 'zoomOutUp', 'hinge'
+                ],
+                title: {
+                    report: "项目进展",
+                    prop: "",
+                    api: "接口文档"
+                }
+            },
+            phone: {
+                obj: "",
+                isShow: true
+            }
+        },
+        mounted: function() {
+            this.$nextTick(function() {
+                let $docuFrame = $("#docuFrame"),
+                    $docuReport = $("#docuReport"),
+                    $propImg = $("#propImg");
+
+                this.phone.obj = $("#phone");
+                $.backstretch("static/img/show-back.jpg");
+                $("#chooseDocu").on("click", function(e) {
+                    if(e.target.tagName === "A") {
+                        Client.panel.title.api = e.target.innerText;
+                        $docuFrame.attr("src", "iframe/" + $(e.target).data("url"));
+                    }
+                });
+                $("#chooseReport").on("click", function(e) {
+                    if(e.target.tagName === "A") {
+                        Client.panel.title.report = e.target.innerText;
+                        $docuReport.attr("src", "iframe/report/" + $(e.target).data("url"));
+                    }
+                });
+                $("#chooseProp").on("click", function(e) {
+                    if(e.target.tagName === "A") {
+                        Client.panel.title.prop = e.target.innerText;
+                        $propImg.attr("src", "static/img/prototype-" + $(e.target).data("url"));
+                    }
+                });
+            })
+        },
+        methods: {
+            show: function(panelName) {
+                let last = $("#" + this.panel.last),
+                    current = $("#item-" + panelName),
+                    random = Math.floor(Math.random() * this.panel.animateIn.length),
+                    _this = this;
+
+                if(this.panel.last !== "item-" + panelName) {
+                    last.attr("class", "other-item animated " + this.panel.animateOut[random]);
+                    current.attr("class", "other-item animated " + this.panel.animateIn[random]);
+                    setTimeout(function hidePanel() {
+                        last.addClass("sr-only");
+                        _this.panel.last = "item-" + panelName;
+                    }, 1000)
+                }
+            },
+            togglePhone: function() {
+                let phone = this.phone.obj;
+
+                if(!this.phone.isShow) {
+                    // 开启
+                    $("#document").removeClass("con-other-no-phone");
+                    setTimeout(function() {
+                        phone.removeClass("sr-only");
+                    }, 1000);
+                    setTimeout(function() {
+                        phone.removeClass("slideOutLeft").addClass("slideInLeft");
+                    }, 1100);
+                    this.phone.isShow = true;
+                } else {
+                    // 关闭
+                    phone.removeClass("slideInLeft").addClass("slideOutLeft");
+                    this.phone.isShow = false;
+                    setTimeout(function() {
+                        phone.addClass("sr-only");
+                        $("#document").addClass("con-other-no-phone");
+                    }, 1000);
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

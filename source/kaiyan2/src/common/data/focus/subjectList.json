@@ -1,0 +1,28 @@
+{
+    "code": "1",
+    "msg": "",
+    "data": [
+        {
+            "id": 1,
+            "name": "旅游",
+            "brief": "“旅”是旅行，外出，即为了实现某一目的而在空间上从甲地到乙地的行进过程；“游”是外出游览、观光、娱乐，即为达到这些目的所作的旅行。二者合起来即旅游。所以，旅行偏重于行，旅游不但有“行”，且有观光、娱乐含义。",
+            "thumbnail": "kaiyan/subject/1.jpg",
+            "countArticle": 2,
+            "countFocus": 127
+        }, {
+            "id": 2,
+            "name": "移动端开发",
+            "brief": "移动开发也称为手机开发，或叫做移动互联网开发。是指以手机、PDA、UMPC等便携终端为基础，进行相应的开发工作。",
+            "thumbnail": "kaiyan/subject/2.jpg",
+            "countArticle": 3,
+            "countFocus": 84
+        }, {
+            "id": 3,
+            "name": "前端开发",
+            "brief": "扬我大前端！",
+            "thumbnail": "kaiyan/subject/3.jpg",
+            "countArticle": 2,
+            "countFocus": 1041
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "code": "1",
+    "msg": "",
+    "data": [
+        {
+            "id": 2,
+            "name": "移动端开发",
+            "nickname": "游学者、墨槿",
+            "thumbnail": "kaiyan/subject/2.jpg",
+            "countArticle": 3,
+            "countFocus": 84
+        }, {
+            "id": 3,
+            "name": "前端开发",
+            "nickname": "游学者、墨槿",
+            "thumbnail": "kaiyan/subject/3.jpg",
+            "countArticle": 2,
+            "countFocus": 1041
+        }
+    ]
+}

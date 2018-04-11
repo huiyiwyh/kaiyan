@@ -1,0 +1,131 @@
+$colorMain: #0099cc;
+$colorFontIntro: #666;
+$colorFontWhite: #fff;
+//$colorBorder: rgba(0,0,0,0.1);
+$colorBorder: rgba(0,0,0,0.1);
+
+@mixin ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+@mixin ellipsis-more-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+@mixin ellipsis-more-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+.color-main {
+    color: $colorMain;
+}
+.color-intro {
+    color: $colorFontIntro;
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.con {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+}
+
+.no-radius {
+    border-radius: 0;
+}
+.no-bt {
+    border-top: none;
+}
+.font-bold {
+    font-weight: bold;
+}
+.font-18 {
+    font-size: 18px;
+}
+.font-16 {
+    font-size: 16px;
+}
+.font-14 {
+    font-size: 14px;
+}
+.font-12 {
+    font-size: 12px;
+}
+.btn {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 12px;
+}
+.btn-primary {
+    border-color: $colorMain;
+    background-color: $colorMain;
+}
+.btn-default {
+    color: $colorMain;
+    border-color: $colorMain;
+}
+
+.mt-5 {
+    margin-top: 5px !important;
+}
+.mt-10 {
+    margin-top: 10px !important;
+}
+.mt-15 {
+    margin-top: 15px !important;
+}
+.mr-10 {
+    margin-right: 10px !important;
+}
+.mr-15 {
+    margin-right: 15px !important;
+}
+.mb-15 {
+    margin-bottom: 15px !important;
+}
+.ml-5 {
+    margin-left: 5px !important;
+}
+.ml-10 {
+    margin-left: 10px !important;
+}
+.ml-15 {
+    margin-left: 15px !important;
+}
+.pl-5 {
+    padding-left: 5px;
+}
+.pt-15 {
+    padding-top: 15px;
+}
+.panel-primary {
+    background-color: #0099cc !important;
+    border-color: #0099cc !important;
+
+    .panel-heading {
+        background-color: #0099cc !important;
+        border-color: #0099cc !important;
+    }
+}
+// 修改 bootstrap 默认样式
+.list-group-item {
+    padding: 10px 15px;
+    border-left: none;
+    border-right: none;
+    margin-bottom: -1px;
+}
+.list-group-item:first-child,
+.list-group-item:last-child {
+    border-radius: 0;
+}
