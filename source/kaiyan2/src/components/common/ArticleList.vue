@@ -6,7 +6,7 @@
                 <div class="article-left">
                     <div class="article-info">
                         <div class="article-author">
-                            <img @click="goTo('personIndex')" :src="picUrl + item.head" alt="head" />
+                            <img @click="goTo('personIndex')" :src="picUrl + item.head" alt="head"/>
                             <div class="article-name">
                                 <span @click="goTo('personIndex')" class="font-bold" v-text="item.nickname"></span>
                                 <br/>
@@ -41,7 +41,7 @@
         <article class="article-item" v-for="item in article.data">
             <div class="clearfix">
                 <div class="article-author">
-                    <img @click="goTo('personIndex')" :src="picUrl + item.head" alt="head" />
+                    <img @click="goTo('personIndex')" :src="picUrl + item.head" alt="head"/>
                     <span @click="goTo('personIndex')" class="article-name" v-text="item.nickname"></span>
                     <span class="pull-right" v-text="item.date"></span>
                 </div>
@@ -69,45 +69,51 @@
                     </li>
                 </ul>
                 <div class="btn btn-default article-subject" v-if="item.sid === 0">尚未投稿</div>
-                <div @click="goTo('subject')" class="btn btn-default article-subject" v-else v-text="item.subjectName"></div>
+                <div @click="goTo('subject')" class="btn btn-default article-subject" v-else
+                     v-text="item.subjectName"></div>
             </div>
         </article>
     </section>
     <!-- 我的模块文章列表模板 -->
-    <section class="con-article" v-else-if="article.type === 'my'">
-        <article class="article-item" v-for="item in article.data">
-            <div class="clearfix">
-                <div class="article-info">
-                    <div class="article-date" v-text="item.date"></div>
-                    <h3 @click="goTo('article')" v-text="item.title"></h3>
+    <section class="con-article swiper-container" v-else-if="article.type === 'my'">
+        <div class="swiper-wrapper">
+            <article class="swiper-slide article-item" v-for="item in article.data">
+                <div class="clearfix">
+                    <div class="article-info">
+                        <div class="article-date" v-text="item.date"></div>
+                        <h3 @click="goTo('article')" v-text="item.title"></h3>
+                    </div>
+                    <div class="article-right">
+                        <img src="../../assets/back.jpg" alt="缩略图"/>
+                    </div>
                 </div>
-                <div class="article-right">
-                    <img src="../../assets/back.jpg" alt="缩略图"/>
+                <div class="clearfix mt-15">
+                    <ul class="article-data">
+                        <li>
+                            <i class="iconfont icon-comment"></i>
+                            <span v-text="item.countComment"></span>
+                        </li>
+                        <li>
+                            <i class="iconfont icon-unlike"></i>
+                            <span v-text="item.countLike"></span>
+                        </li>
+                        <li>
+                            <i class="iconfont icon-book"></i>
+                            <span v-text="item.countRead"></span>
+                        </li>
+                    </ul>
+                    <div class="btn btn-default article-subject" v-if="item.sid === 0">尚未投稿</div>
+                    <div @click="goTo('subject')" class="btn btn-default article-subject" v-else
+                         v-text="item.subjectName"></div>
                 </div>
-            </div>
-            <div class="clearfix mt-15">
-                <ul class="article-data">
-                    <li>
-                        <i class="iconfont icon-comment"></i>
-                        <span v-text="item.countComment"></span>
-                    </li>
-                    <li>
-                        <i class="iconfont icon-unlike"></i>
-                        <span v-text="item.countLike"></span>
-                    </li>
-                    <li>
-                        <i class="iconfont icon-book"></i>
-                        <span v-text="item.countRead"></span>
-                    </li>
-                </ul>
-                <div class="btn btn-default article-subject" v-if="item.sid === 0">尚未投稿</div>
-                <div @click="goTo('subject')" class="btn btn-default article-subject" v-else v-text="item.subjectName"></div>
-            </div>
-        </article>
+            </article>
+        </div>
     </section>
 </template>
 
 <script type="text/ecmascript-6">
+    import Swiper from "swiper/dist/js/swiper.min"
+
     export default {
         name: "ArticleListTemplate",
         props: ["article"],
@@ -115,6 +121,67 @@
             return {
                 picUrl: this.$config.picUrl
             }
+        },
+        mounted() {
+            let refreshEnd = false,
+                times = 0, //加载次数
+                oriSpeed = 300;
+            $(".con-article").height($(window).height() - 40);
+            // let swiper = new Swiper('.swiper-container', {
+            //     speed: oriSpeed,
+            //     slidesPerView: 'auto',
+            //     freeMode: true,
+            //     direction: 'vertical',
+            //     // setWrapperSize: true,
+            //     on: {
+            //         //下拉释放刷新
+            //         touchEnd: function () {
+            //             swiper = this;
+            //             let refreshText = swiper.$el.find('.refreshText')
+            //             console.log(swiper.translate);
+            //             if(this.translate > 100) {
+            //                 swiper.setTransition(this.params.speed);
+            //                 swiper.setTranslate(100);
+            //                 swiper.touchEventsData.isTouched = false;//跳过touchEnd事件后面的跳转(4.0.5)
+            //                 refreshText.html('刷新中')
+            //
+            //                 swiper.allowTouchMove = false;
+            //                 setTimeout(function () {
+            //                     // swiper.removeAllSlides();
+            //                     refreshText.html('刷新完成');
+            //                     refreshEnd = true;
+            //                     swiper.allowTouchMove = true;
+            //                 }, 1000)
+            //
+            //             }
+            //
+            //         },
+            //         touchStart: function () {
+            //             if(refreshEnd === true) {
+            //                 this.$el.find('.refreshText').html('释放刷新');
+            //                 refreshEnd = false;
+            //             }
+            //         },
+            //
+            //         //加载更多
+            //         momentumBounce: function () {//非正式反弹回调函数，上拉释放加载更多可参考上例
+            //             swiper = this;
+            //             if (swiper.translate < -100) {
+            //                 swiper.allowTouchMove = false;//禁止触摸
+            //                 swiper.params.virtualTranslate = true;//定住不给回弹
+            //                 setTimeout(function () {
+            //                     for (let m = 0; m < 20; m++) {
+            //                         swiper.appendSlide('<div class="swiper-slide">moreSlide' + (times * 20 + m + 1) + '</div>');
+            //                     }
+            //                     swiper.params.virtualTranslate = false;
+            //                     swiper.allowTouchMove = true;
+            //                     times++
+            //                 }, 1000)
+            //
+            //             }
+            //         },
+            //     }
+            // });
         },
         methods: {
             goTo(page, param) {
@@ -129,8 +196,8 @@
 
 <style scoped lang="scss">
     .con-article {
-        height: auto;
         background-color: #fff;
+        overflow: auto;
 
         .article-item {
             height: auto;
@@ -208,6 +275,7 @@
             }
         }
     }
+
     .article-other {
 
         .article-item {
@@ -239,6 +307,7 @@
             }
         }
     }
+
     .article-reco {
 
         .article-item {

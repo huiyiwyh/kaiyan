@@ -22,71 +22,86 @@ let Module = (function() {
 })();
 
 Module.define("Ajax", [], function() {
-    const getJSON = (url) => {
-        const promise = new Promise(function(resolve, reject) {
-            const handler = function() {
-                if(this.readyState !== 4) {
-                    return;
-                }
-                if(this.status === 200) {
-                    resolve(this.response);
-                } else {
-                    reject(new Error(this.statusText));
-                }
+
+});
+Module.define("Dialog", [], function() {
+    let open = (container, setting) => {
+        let con = null;
+        if(typeof container === "string") {
+            con = document.querySelector(container);
+        } else {
+            con = container;
+        }
+        let width = 0,
+            height = 0;
+        if(setting.width) {
+            if(typeof setting.width === "string" && setting.width.indexOf("%") !== -1) {
+                width = screen.availWidth * Number(setting.width.slice(0, setting.width.length - 1)) / 100;
+            } else if (typeof setting.width === "string" && setting.width.indexOf("px") !== -1) {
+                width = Number(setting.width.slice(0, setting.width.length - 2));
+            } else {
+                width = setting.width;
+            }
+        } else {
+            width = screen.availWidth;
+        }
+        if(setting.height) {
+            if(typeof setting.height === "string" && setting.height.indexOf("%") !== -1) {
+                height = screen.availHeight * Number(setting.height.slice(0, setting.height.length - 1)) / 100;
+            } else if (typeof setting.height === "string" && setting.height.indexOf("px") !== -1) {
+                height = Number(setting.height.slice(0, setting.height.length - 2));
+            } else {
+                height = setting.height;
+            }
+        } else {
+            height = screen.availWHeight;
+        }
+        const marginLeft = Math.round(width / 2);
+        const marginTop = Math.round(height / 2);
+        con.setAttribute("style",
+            "display: block; " +
+            "position: fixed; " +
+            "top: 50%; " +
+            "left: 50%; " +
+            "margin-left: -" + marginLeft + "px; " +
+            "margin-top: -" + marginTop + "px; " +
+            "z-index: 1000;"
+        );
+        if(setting.isCover) {
+            let cover = document.createElement("div");
+            cover.onclick = function() {
+                close(con);
             };
-            const client = new XMLHttpRequest();
-            client.open("GET", url);
-            client.onreadystatechange = handler;
-            client.responseType = "json";
-            client.setRequestHeader("Accept", "application/json");
-            client.send();
-        });
-        return promise;
+            cover.id = "DialogCoverSpirit";
+            cover.setAttribute("style",
+                "width: 100%; " +
+                "height: 100%; " +
+                "position: fixed; " +
+                "top: 0; " +
+                "left: 0; " +
+                "z-index: 999; " +
+                "background-color: rgba(0,0,0,0.5);"
+            );
+            document.body.append(cover);
+        }
     };
-    const get = (url, data, token) => {
-        const promise = new Promise(function(resolve, reject) {
-            const handler = function() {
-                if(this.readyState !== 4) {
-                    return;
-                }
-                if(this.status === 200) {
-                    resolve(this.response);
-                } else {
-                    reject(new Error(this.statusText));
-                }
-            };
-            const client = new XMLHttpRequest();
-            client.open("GET", url + "?" + data.join("&"));
-            client.onreadystatechange = handler;
-            client.setRequestHeader("Token", token);
-            client.send();
-        });
-        return promise;
-    };
-    const post = (url, data, token) => {
-        const promise = new Promise(function(resolve, reject) {
-            const handler = function() {
-                if(this.readyState !== 4) {
-                    return;
-                }
-                if(this.status === 200) {
-                    resolve(this.response);
-                } else {
-                    reject(new Error(tjos.statusText));
-                }
-            };
-            const client = new XMLHttpRequest();
-            client.open("POST", url);
-            client.onreadystatechange = handler;
-            client.setRequestHeader("Token", token);
-            client.send(data);
-        })
+    let close = (container) => {
+        let con = null;
+        if(typeof container === "string") {
+            con = document.querySelector(container);
+        } else {
+            con = container;
+        }
+        con.style.display = "none";
+        let cover = document.getElementById("DialogCoverSpirit");
+        if(cover) {
+            cover.parentNode.removeChild(cover);
+        }
     };
 
     return {
-        getJSON: getJSON,
-        get: get,
-        post: post
+        open: open,
+        close: close
     }
 });
 Module.define("test2", ['test1'], function() {

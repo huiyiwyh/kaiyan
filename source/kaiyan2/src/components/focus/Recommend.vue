@@ -1,36 +1,38 @@
 <template>
     <div class="recommend">
         <header-temp :config="config.header"></header-temp>
-        <section class="con-search">
-            <div class="search-body">
-                <i class="iconfont icon-search"></i>
-                <span>搜索开眼的专题和作者</span>
-            </div>
-        </section>
-        <section class="con-tab">
-            <ul class="tab-list">
-                <li class="tab-item active" data-slide-to="0">
-                    <i class="iconfont icon-user"></i>
-                    <div>推荐作者</div>
-                </li>
-                <li class="tab-item" data-slide-to="1">
-                    <i class="iconfont icon-subject"></i>
-                    <div>推荐专题</div>
-                </li>
-            </ul>
-        </section>
-        <section class="con-body" id="conBody">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <author-list-temp :author="author"></author-list-temp>
-                    </div>
-                    <div class="swiper-slide">
-                        <subject-list-temp :subject="subject"></subject-list-temp>
+        <div class="body">
+            <section class="con-search">
+                <div class="search-body">
+                    <i class="iconfont icon-search"></i>
+                    <span>搜索开眼的专题和作者</span>
+                </div>
+            </section>
+            <section class="con-tab">
+                <ul class="tab-list">
+                    <li class="tab-item active" data-slide-to="0">
+                        <i class="iconfont icon-user"></i>
+                        <div>推荐作者</div>
+                    </li>
+                    <li class="tab-item" data-slide-to="1">
+                        <i class="iconfont icon-subject"></i>
+                        <div>推荐专题</div>
+                    </li>
+                </ul>
+            </section>
+            <section class="con-body" id="conBody">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <author-list-temp :author="author"></author-list-temp>
+                        </div>
+                        <div class="swiper-slide">
+                            <subject-list-temp :subject="subject"></subject-list-temp>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </div>
 </template>
 

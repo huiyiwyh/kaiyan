@@ -5,7 +5,9 @@
             <h3 class="font-title pull-left">我的专题</h3>
             <h3 @click="goTo('personMyNewSubject')" class="font-title pull-right btn-create">新建专题</h3>
         </header>
-        <subject-list-temp :subject="subject"></subject-list-temp>
+        <div class="body">
+            <subject-list-temp :subject="subject"></subject-list-temp>
+        </div>
     </div>
 </template>
 
@@ -23,9 +25,22 @@
             return {
                 subject: {
                     type: "my",
-                    data: subjectList.data
+                    data: []
                 }
             }
+        },
+        created() {
+            const promise = this.$request.getSubjectList(3, '879646529', 0, '123456');
+            promise.then(data => {
+                const _data = JSON.parse(data);
+                if(Number(_data.code) === 1) {
+                    this.subject.data = _data.data;
+                } else {
+                    console.warn(_data.msg);
+                }
+            }).catch(err => {
+                console.log(err);
+            })
         },
         methods: {
             routerBack() {
@@ -40,29 +55,3 @@
         }
     }
 </script>
-
-<style scoped lang="scss">
-    .normal {
-        width: 100%;
-        height: 40px;
-        padding: 10px;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-        background-color: #fff;
-        line-height: 20px;
-
-        h3 {
-            margin: 0;
-            font-size: 20px;
-            font-weight: bold;
-        }
-        .iconfont {
-            font-size: 20px;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-        .btn-create {
-            font-weight: 400;
-            color: #0099cc;
-        }
-    }
-</style>

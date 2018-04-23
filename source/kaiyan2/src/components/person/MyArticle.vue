@@ -1,13 +1,17 @@
 <template>
     <div>
         <header-temp :config="config.header"></header-temp>
-        <article-temp :article="article"></article-temp>
+        <div class="body">
+            <article-temp :article="article"></article-temp>
+        </div>
+        <!--<test></test>-->
     </div>
 </template>
 
 <script type="text/ecmascript-6">
     import HeaderTemp from "../../components/common/Header"
     import ArticleTemp from "../common/ArticleList"
+    import Test from "../common/Test"
 
     import article from "../../common/data/person/article"
 
@@ -15,7 +19,8 @@
         name: "PersonMyArticle",
         components: {
             HeaderTemp,
-            ArticleTemp
+            ArticleTemp,
+            Test
         },
         data() {
             return {

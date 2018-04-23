@@ -1,7 +1,9 @@
 <template>
     <div>
         <header-temp :config="config.header"></header-temp>
-        <subject-list-temp :subject="subject"></subject-list-temp>
+        <div class="body">
+            <subject-list-temp :subject="subject"></subject-list-temp>
+        </div>
     </div>
 </template>
 
@@ -30,9 +32,22 @@
                 },
                 subject: {
                     type: 'focus',
-                    data: subjectList.data
+                    data: []
                 }
             }
+        },
+        created() {
+            const promise = this.$request.getSubjectFocus('879646529', 0, '123456');
+            promise.then(data => {
+                const _data = JSON.parse(data);
+                if(Number(_data.code) === 1) {
+                    this.subject.data = _data.data;
+                } else {
+                    console.warn(_data.msg);
+                }
+            }).catch(err => {
+                console.log(err);
+            })
         }
     }
 </script>
