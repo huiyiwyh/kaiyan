@@ -24,13 +24,9 @@
                 <div class="author-brief">人生不是戏剧，而我亦非主角</div>
                 <hr>
                 <ul>
-                    <li @click="goTo('article')">
+                    <li @click="goTo('article', { id: articleItem.id })" v-for="articleItem in item.article">
                         <i class="iconfont icon-article"></i>
-                        <span v-text="item.article"></span>
-                    </li>
-                    <li @click="goTo('article')">
-                        <i class="iconfont icon-article"></i>
-                        <span v-text="item.article"></span>
+                        <span v-text="articleItem.title"></span>
                     </li>
                 </ul>
             </div>

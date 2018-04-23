@@ -1,60 +1,62 @@
 <template>
-    <div class="con">
+    <div>
         <header-temp :config="config.header"></header-temp>
-        <section @click="goTo('personIndex')" class="con-person">
-            <div class="person-head pull-left">
-                <img :src="'http://115.159.59.72/' + user.head" alt="head" />
-            </div>
-            <div class="person-info pull-left">
-                <div class="font-primary" v-text="user.nickname"></div>
-                <div class="font-intro" v-text="user.brief"></div>
-            </div>
-        </section>
-        <section class="con-content">
-            <ul class="list-group">
-                <li @click="goTo('personMyFocusAuthor')" class="list-group-item no-radius">
-                    <i class="iconfont icon-focus"></i>
-                    <span class="badge" v-text="user.countFocus"></span>
-                    <div>我的关注</div>
-                </li>
-                <li @click="goTo('personMyFans')" class="list-group-item">
-                    <i class="iconfont icon-fans"></i>
-                    <span class="badge" v-text="user.countFans"></span>
-                    <div>我的粉丝</div>
-                </li>
-                <li @click="goTo('personMyLike')" class="list-group-item">
-                    <i class="iconfont icon-like"></i>
-                    <span class="badge" v-text="user.countLike"></span>
-                    <div>喜欢的文章</div>
-                </li>
-                <li @click="goTo('personMyArticle')" class="list-group-item">
-                    <i class="iconfont icon-article"></i>
-                    <span class="badge" v-text="user.countArticle"></span>
-                    <div>我的文章</div>
-                </li>
-                <li @click="goTo('personMyFocusSubject')" class="list-group-item">
-                    <i class="iconfont icon-sure"></i>
-                    <span class="badge" v-text="user.countSubject"></span>
-                    <div>关注的专题</div>
-                </li>
-                <li @click="goTo('personMySubject')" class="list-group-item">
-                    <i class="iconfont icon-subject"></i>
-                    <div>我的专题</div>
-                </li>
-                <li @click="goTo('personMyHistory')" class="list-group-item">
-                    <i class="iconfont icon-clock"></i>
-                    <div>浏览记录</div>
-                </li>
-                <li class="list-group-item">
-                    <i class="iconfont icon-moon"></i>
-                    <div>夜间模式</div>
-                </li>
-                <li class="list-group-item">
-                    <i class="iconfont icon-alert"></i>
-                    <div>常见帮助</div>
-                </li>
-            </ul>
-        </section>
+        <div class="con">
+            <section @click="goTo('personIndex')" class="con-person">
+                <div class="person-head pull-left">
+                    <img :src="'http://115.159.59.72/' + user.head" alt="head" />
+                </div>
+                <div class="person-info pull-left">
+                    <div class="font-primary" v-text="user.nickname"></div>
+                    <div class="font-intro" v-text="user.brief"></div>
+                </div>
+            </section>
+            <section class="con-content">
+                <ul class="list-group">
+                    <li @click="goTo('personMyFocusAuthor')" class="list-group-item no-radius">
+                        <i class="iconfont icon-focus"></i>
+                        <span class="badge" v-text="user.countFocus"></span>
+                        <div>我的关注</div>
+                    </li>
+                    <li @click="goTo('personMyFans')" class="list-group-item">
+                        <i class="iconfont icon-fans"></i>
+                        <span class="badge" v-text="user.countFans"></span>
+                        <div>我的粉丝</div>
+                    </li>
+                    <li @click="goTo('personMyLike')" class="list-group-item">
+                        <i class="iconfont icon-like"></i>
+                        <span class="badge" v-text="user.countLike"></span>
+                        <div>喜欢的文章</div>
+                    </li>
+                    <li @click="goTo('personMyArticle')" class="list-group-item">
+                        <i class="iconfont icon-article"></i>
+                        <span class="badge" v-text="user.countArticle"></span>
+                        <div>我的文章</div>
+                    </li>
+                    <li @click="goTo('personMyFocusSubject')" class="list-group-item">
+                        <i class="iconfont icon-sure"></i>
+                        <span class="badge" v-text="user.countSubject"></span>
+                        <div>关注的专题</div>
+                    </li>
+                    <li @click="goTo('personMySubject')" class="list-group-item">
+                        <i class="iconfont icon-subject"></i>
+                        <div>我的专题</div>
+                    </li>
+                    <li @click="goTo('personMyHistory')" class="list-group-item">
+                        <i class="iconfont icon-clock"></i>
+                        <div>浏览记录</div>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="iconfont icon-moon"></i>
+                        <div>夜间模式</div>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="iconfont icon-alert"></i>
+                        <div>常见帮助</div>
+                    </li>
+                </ul>
+            </section>
+        </div>
     </div>
 </template>
 

@@ -66,6 +66,7 @@
                             <li><a href="javascript:;" data-url="author.html">作者接口文档</a></li>
                             <li><a href="javascript:;" data-url="subject.html">专题接口文档</a></li>
                             <li><a href="javascript:;" data-url="blacklist.html">黑名单管理文档</a></li>
+                            <li><a href="javascript:;" data-url="search.html">搜索接口文档</a></li>
                             <li role="separator" class="divider"></li>
                             <!--<li><a href="javascript:;">Separated link</a></li>-->
                         </ul>
@@ -187,7 +188,7 @@
                 $("#chooseDocu").on("click", function(e) {
                     if(e.target.tagName === "A") {
                         Client.panel.title.api = e.target.innerText;
-                        $docuFrame.attr("src", "iframe/" + $(e.target).data("url"));
+                        $docuFrame.attr("src", "iframe/api/" + $(e.target).data("url"));
                     }
                 });
                 $("#chooseReport").on("click", function(e) {

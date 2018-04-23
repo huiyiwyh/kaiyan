@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "box.js": "^0.2.1"
+  }
+}

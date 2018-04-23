@@ -1,7 +1,9 @@
 <template>
     <div>
         <header-temp :config="config.header"></header-temp>
-        <author-list-temp :author="author"></author-list-temp>
+        <div class="body">
+            <author-list-temp :author="author"></author-list-temp>
+        </div>
     </div>
 </template>
 
@@ -29,9 +31,24 @@
                 },
                 author: {
                     type: "recommend",
-                    data: authorView.data
+                    data: []
                 }
             }
+        },
+        created() {
+            const routeParam = this.$route.params;
+            this.config.header.title = routeParam.content;
+            const promise = this.$request.getSearchUser(routeParam.content, this.author.data.length, '123456');
+            promise.then(data => {
+                const _data = JSON.parse(data);
+                if(Number(_data.code) === 1) {
+                    this.author.data = _data.data;
+                } else {
+                    console.warn(_data.msg);
+                }
+            }).catch(err => {
+                console.log(err);
+            })
         }
     }
 </script>

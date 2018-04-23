@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import "swiper/dist/css/swiper.min.css"
 import {Module} from "@/common/js/common"
 import {Config} from "@/common/js/config"
+import {Request} from "@/api/request"
 
 Vue.config.productionTip = false;
 
@@ -21,6 +22,7 @@ new Vue({
         Vue.prototype.$ajax = Ajax;
         Vue.prototype.$module = Module;
         Vue.prototype.$config = Config;
+        Vue.prototype.$request = Request;
     },
     components: {App},
     template: '<App/>'

@@ -1,109 +1,79 @@
 <template>
-    <div class="body">
-        <header class="normal">
+    <div>
+        <header class="normal search">
             <i @click="routerBack()" class="iconfont icon-back pull-left mr-10"></i>
             <div class="header-input">
                 <input v-model="content" type="text" placeholder="搜索文章、专题、用户、文集" />
                 <i @click="search()" class="iconfont icon-search pull-right"></i>
             </div>
         </header>
-        <article class="main" id="main">
-            <section class="con-subject">
-                <i class="iconfont icon-subject"></i>
-                <span>热门专题</span>
-                <i @click="goTo('searchSubject', { type: 2 })" class="iconfont icon-arrow-right pull-right"></i>
-            </section>
-            <section class="con-popular">
-                <div class="popular-header">
-                    <i class="iconfont icon-popular"></i>
-                    <span>热门搜索</span>
-                    <span class="pull-right color-intro btn-refresh">换一批</span>
-                    <i class="iconfont icon-refresh pull-right"></i>
-                </div>
-                <ul class="popular-list">
-                    <li class="popular-item" v-for="item in popular" v-text="item"></li>
-                </ul>
-            </section>
-            <section class="con-history">
-                <ul class="history-list">
-                    <li class="history-item">
-                        <i class="iconfont icon-clock pull-left"></i>
-                        <div class="history-name">区块链</div>
-                        <i class="iconfont icon-delete pull-right"></i>
-                    </li>
-                    <li class="history-item">
-                        <i class="iconfont icon-clock pull-left"></i>
-                        <div class="history-name">区块链</div>
-                        <i class="iconfont icon-delete pull-right"></i>
-                    </li>
-                </ul>
-                <div class="btn-clear">清除搜索记录</div>
-            </section>
-        </article>
-        <article class="search sr-only" id="search">
-            <section class="con-user">
-                <div class="user-header">
-                    <div class="font-bold pull-left">相关用户</div>
-                    <i @click="goTo('searchUser')" class="iconfont icon-arrow-right pull-right"></i>
-                </div>
-                <ul class="user-list">
-                    <li class="user-item">
-                        <div class="user-head"></div>
-                        <div class="user-info mt-5">区块链</div>
-                    </li>
-                    <li class="user-item">
-                        <div class="user-head"></div>
-                        <div class="user-info mt-5">区块链</div>
-                    </li>
-                    <li class="user-item">
-                        <div class="user-head"></div>
-                        <div class="user-info mt-5">区块链</div>
-                    </li>
-                    <li class="user-item">
-                        <div class="user-head"></div>
-                        <div class="user-info mt-5">区块链</div>
-                    </li>
-                </ul>
-            </section>
-            <section class="con-subject">
-                <div class="subject-header">
-                    <div class="font-bold pull-left">相关专题</div>
-                    <i @click="goTo('searchSubject', { type: '1' })" class="iconfont icon-arrow-right pull-right"></i>
-                </div>
-                <ul class="subject-list">
-                    <li class="subject-item">
-                        <div class="subject-thumbnail"></div>
-                        <div class="subject-name mt-5">区块链</div>
-                    </li>
-                    <li class="subject-item">
-                        <div class="subject-thumbnail"></div>
-                        <div class="subject-name mt-5">区块链</div>
-                    </li>
-                    <li class="subject-item">
-                        <div class="subject-thumbnail"></div>
-                        <div class="subject-name mt-5">区块链</div>
-                    </li>
-                    <li class="subject-item">
-                        <div class="subject-thumbnail"></div>
-                        <div class="subject-name mt-5">区块链</div>
-                    </li>
-                </ul>
-            </section>
-            <section class="con-article">
-                <article-list-temp :article="article"></article-list-temp>
-            </section>
-        </article>
+        <div class="body-50">
+            <article class="main" id="main">
+                <section class="con-subject">
+                    <i class="iconfont icon-subject"></i>
+                    <span>热门专题</span>
+                    <i @click="goTo('searchSubject', { type: 2 })" class="iconfont icon-arrow-right pull-right"></i>
+                </section>
+                <section class="con-popular">
+                    <div class="popular-header">
+                        <i class="iconfont icon-popular"></i>
+                        <span>热门搜索</span>
+                        <div @click="refresh()" class="pull-right">
+                            <span class="pull-right color-intro btn-refresh">换一批</span>
+                            <i class="iconfont icon-refresh pull-right"></i>
+                        </div>
+                    </div>
+                    <ul @click="searchPopular($event)" class="popular-list">
+                        <li class="popular-item" v-for="item in popular" v-text="item.name"></li>
+                    </ul>
+                </section>
+                <section class="con-history">
+                    <ul @click="remove($event);searchHistory($event)" class="history-list">
+                        <li class="history-item" v-for="item in history">
+                            <i class="iconfont icon-clock pull-left"></i>
+                            <div class="history-name" v-text="item.name"></div>
+                            <i data-hid="item.id" class="iconfont icon-delete pull-right"></i>
+                        </li>
+                    </ul>
+                    <div @click="removeAll()" class="btn-clear">清除搜索记录</div>
+                </section>
+            </article>
+            <article class="search sr-only" id="search">
+                <section class="con-user">
+                    <div class="user-header">
+                        <div class="font-bold pull-left">相关用户</div>
+                        <i @click="goTo('searchUser', { content: content })" class="iconfont icon-arrow-right pull-right"></i>
+                    </div>
+                    <ul class="user-list">
+                        <li @click="goTo('personIndex', { account: item.account })" class="user-item" v-for="item in result.user">
+                            <img :src="config.reqUrl + item.head" class="user-head" />
+                            <div class="user-info mt-5" v-text="item.nickname"></div>
+                        </li>
+                    </ul>
+                </section>
+                <section class="con-subject">
+                    <div class="subject-header">
+                        <div class="font-bold pull-left">相关专题</div>
+                        <i @click="goTo('searchSubject', { type: '1', content: content })" class="iconfont icon-arrow-right pull-right"></i>
+                    </div>
+                    <ul class="subject-list">
+                        <li @click="goTo('subject', { id: item.id })" class="subject-item" v-for="item in result.subject">
+                            <img :src="config.reqUrl + item.thumbnail" class="subject-thumbnail" />
+                            <div class="subject-name mt-5" v-text="item.name"></div>
+                        </li>
+                    </ul>
+                </section>
+                <section class="con-article">
+                    <article-list-temp :article="result.article"></article-list-temp>
+                </section>
+            </article>
+        </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
     import ArticleListTemp from "@/components/common/ArticleList";
     import Article from "@/common/data/more/article";
-    const searchTestData = [
-        'axure', 'sketch', 'photoshop', '高保真', '付费连载', '原型设计', '区块链',
-        '吃瓜群众岱岱', '考研', '蒋坤元', '简书交友', '反恐', '缉私', '国旗', '救灾',
-        '惩治', '高危', '国歌', '案发', '小程序', '防腐', 'vue', '故事', '白云麦田'
-    ];
 
     export default {
         name: "Search",
@@ -112,11 +82,19 @@
         },
         data() {
             return {
+                config: {
+                    reqUrl: ""
+                },
                 content: "",
                 popular: [],
-                article: {
-                    type: 'recommend',
-                    data: Article.data
+                history: [],
+                result: {
+                    user: [],
+                    subject: [],
+                    article: {
+                        type: 'recommend',
+                        data: []
+                    }
                 }
             }
         },
@@ -125,17 +103,39 @@
                 if(this.content.length === 0) {
                     $("#main").removeClass("sr-only");
                     $("#search").addClass("sr-only");
+                    this.$store.state.search.content = "";
                 }
             }
         },
         created() {
-            this.popular = searchTestData.slice(0, 11);
+            this.content = this.$store.state.search.content;
+            this.config.reqUrl = this.$config.picUrl;
+            const promiseForHistory = this.$request.getSearchHistory('879646529', '123456');
+            promiseForHistory.then(data => {
+                const _data = JSON.parse(data);
+                if(Number(_data.code) === 1) {
+                    this.history = _data.data;
+                } else {
+                    console.warn(_data.msg);
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+            const promiseForPopular = this.$request.getSearchPopular('123456');
+            promiseForPopular.then(data => {
+                const _data = JSON.parse(data);
+                if(Number(_data.code) === 1) {
+                    this.popular = _data.data;
+                } else {
+                    console.warn(_data.msg);
+                }
+            }).catch(err => {
+                console.log(err);
+            });
         },
         mounted() {
-
-
+            this.search();
             $("#search").height($(window).height() - 50);
-
         },
         methods: {
             routerBack() {
@@ -149,9 +149,90 @@
             },
             search() {
                 if(this.content.length !== 0) {
+                    console.log("haha");
                     $("#main").addClass("sr-only");
                     $("#search").removeClass("sr-only");
+                    const promise = this.$request.getSearchContent(this.content, '123456');
+                    promise.then(data => {
+                        const _data = JSON.parse(data);
+                        if(Number(_data.code) === 1) {
+                            this.result.user = _data.data.user;
+                            this.result.subject = _data.data.subject;
+                            this.result.article.data = _data.data.article;
+                        } else {
+                            console.warn(_data.msg);
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                    this.$store.state.search.content = this.content;
                 }
+            },
+            searchPopular(event) {
+                if(event.target.tagName === "LI") {
+                    this.content = $(event.target).text();
+                    this.search();
+                }
+            },
+            searchHistory(event) {
+                const $target = $(event.target);
+                if($target.hasClass('history-name')) {
+                    this.content = $target.text();
+                    this.search();
+                }
+            },
+            /**
+             * 换一批热门搜索
+             */
+            refresh() {
+                const promiseForPopular = this.$request.getSearchPopular('123456');
+                promiseForPopular.then(data => {
+                    const _data = JSON.parse(data);
+                    if(Number(_data.code) === 1) {
+                        this.popular = _data.data;
+                        console.log(this.popular);
+                    } else {
+                        console.warn(_data.msg);
+                    }
+                }).catch(err => {
+                    console.log(err);
+                });
+            },
+            /**
+             * 清除指定搜索记录
+             * @param event 事件对象
+             */
+            remove(event) {
+                const $target = $(event.target);
+                if($target.hasClass("icon-delete")) {
+                    const promise = this.$request.removeSearchHistory($target.attr("data-hid"), '879646529', '123456');
+                    promise.then(data => {
+                        const _data = JSON.parse(data);
+                        if(Number(_data.code) === 1) {
+                            console.log(_data.msg);
+                        } else {
+                            console.warn(_data.msg);
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                    })
+                }
+            },
+            /**
+             * 清除所有搜索记录
+             */
+            removeAll() {
+                const promise = this.$request.removeAllSearchHistory('879646529', '123456');
+                promise.then(data => {
+                    const _data = JSON.parse(data);
+                    if(Number(_data.code) === 1) {
+                        console.log(_data.msg);
+                    } else {
+                        console.warn(_data.msg);
+                    }
+                }).catch(err => {
+                    console.log(err);
+                })
             }
         }
     }
@@ -160,38 +241,6 @@
 <style scoped lang="scss">
     .body {
         background-color: #eeeeee;
-    }
-    header {
-        width: 100%;
-        height: 50px;
-        padding: 10px;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-        background-color: #fff;
-        line-height: 30px;
-
-        .header-input {
-            width: 85%;
-            min-width: 300px;
-            height: 30px;
-            line-height: 30px;
-            padding: 0 10px 0 20px;
-            border: 1px solid $colorBorder;
-            border-radius: 15px;
-            float: left;
-
-            input {
-                width: 85%;
-                min-width: 240px;
-                height: 24px;
-                padding: 0;
-                border: none;
-                outline: none;
-            }
-        }
-        .iconfont {
-            font-size: 20px;
-            font-weight: bold;
-        }
     }
     .main {
         width: 100%;

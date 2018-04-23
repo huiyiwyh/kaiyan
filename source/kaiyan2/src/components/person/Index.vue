@@ -1,5 +1,5 @@
 <template>
-    <div class="con">
+    <div>
         <header-temp :config="config.header"></header-temp>
         <div class="con-back" id="back"></div>
         <div class="con-info">
@@ -214,6 +214,7 @@
             }
         },
         created() {
+            console.log(this.$route.params.account);
             this.config.reqUrl = this.$config.url.person;
             this.user = this.$store.state.user;
             const promiseAction = this.$ajax.get(

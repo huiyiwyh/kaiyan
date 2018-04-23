@@ -1,75 +1,78 @@
 <template>
     <div class="con">
         <header-temp :config="config.header"></header-temp>
-        <div class="con-info">
-            <div class="info-head">
-                <img :src="picUrl + subject.thumbnail" alt="head"/>
-            </div>
-            <div class="info-basic">
-                <div class="font-18 font-bold pt-15" v-text="subject.name"></div>
-                <div class="mt-5">
-                    <span class="color-main" v-text="subject.nickname"></span>&nbsp;<span>编</span>
-                    <span v-text="subject.countArticle"></span>&nbsp;<span>篇文章</span>
+        <div class="body">
+            <section class="con-info">
+                <div class="info-head">
+                    <img :src="picUrl + subject.thumbnail" alt="head"/>
                 </div>
-            </div>
-            <div class="info-brief" v-text="subject.brief"></div>
-            <div class="info-operation">
-                <div class="btn btn-primary pull-left">+ 关注 | <span v-text="subject.countFocus"></span></div>
-                <div @click.stop="showPanel()" class="btn btn-default pull-right">投稿</div>
-            </div>
-        </div>
-        <div class="con-tab">
-            <ul class="tab-list clearfix">
-                <li class="tab-item active" data-slide-to="0">最新投稿</li>
-                <li class="tab-item" data-slide-to="1">最热门</li>
-            </ul>
-            <div class="swiper-container clearfix">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <article-list-temp :article="article"></article-list-temp>
-                    </div>
-                    <div class="swiper-slide">
-                        <article-list-temp :article="article"></article-list-temp>
+                <div class="info-basic">
+                    <div class="font-18 font-bold pt-15" v-text="subject.name"></div>
+                    <div class="mt-5">
+                        <span class="color-main" v-text="subject.nickname"></span>&nbsp;<span>编</span>
+                        <span v-text="subject.countArticle"></span>&nbsp;<span>篇文章</span>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="panel panel-primary panel-cont" id="panelCont">
-            <div class="panel-heading">向专题投稿</div>
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <span>面朝大海，春暖花开</span>
-                    <div class="btn btn-default pull-right">投稿</div>
-                </li>
-                <li class="list-group-item">
-                    <span>面朝大海，春暖花开</span>
-                    <div class="btn btn-default pull-right">投稿</div>
-                </li>
-                <li class="list-group-item">
-                    <span>面朝大海，春暖花开</span>
-                    <div class="btn btn-default pull-right">投稿</div>
-                </li>
-                <li class="list-group-item">
-                    <span>面朝大海，春暖花开</span>
-                    <div class="btn btn-default pull-right">投稿</div>
-                </li>
-                <li class="list-group-item">
-                    <span>面朝大海，春暖花开</span>
-                    <div class="btn btn-default pull-right">投稿</div>
-                </li>
-                <li class="list-group-item">
-                    <span>面朝大海，春暖花开</span>
-                    <div class="btn btn-default pull-right">投稿</div>
-                </li>
-                <li class="list-group-item">
-                    <span>面朝大海，春暖花开</span>
-                    <div class="btn btn-default pull-right">投稿</div>
-                </li>
-                <li class="list-group-item">
-                    <span>面朝大海，春暖花开</span>
-                    <div class="btn btn-default pull-right">投稿</div>
-                </li>
-            </ul>
+                <div class="info-brief" v-text="subject.brief"></div>
+                <div class="info-operation">
+                    <div class="btn btn-primary pull-left" v-if="config.isMine === true">+ 关注 | <span v-text="subject.countFocus"></span></div>
+                    <div class="btn btn-primary pull-left" v-else>管理</div>
+                    <div @click.stop="showPanel()" class="btn btn-default pull-right">投稿</div>
+                </div>
+            </section>
+            <section class="con-tab">
+                <ul class="tab-list clearfix">
+                    <li class="tab-item active" data-slide-to="0">最新投稿</li>
+                    <li class="tab-item" data-slide-to="1">最热门</li>
+                </ul>
+                <div class="swiper-container clearfix">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <article-list-temp :article="article"></article-list-temp>
+                        </div>
+                        <div class="swiper-slide">
+                            <article-list-temp :article="article"></article-list-temp>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="panel panel-primary panel-cont" id="panelCont">
+                <div class="panel-heading">向专题投稿</div>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span>面朝大海，春暖花开</span>
+                        <div class="btn btn-default pull-right">投稿</div>
+                    </li>
+                    <li class="list-group-item">
+                        <span>面朝大海，春暖花开</span>
+                        <div class="btn btn-default pull-right">投稿</div>
+                    </li>
+                    <li class="list-group-item">
+                        <span>面朝大海，春暖花开</span>
+                        <div class="btn btn-default pull-right">投稿</div>
+                    </li>
+                    <li class="list-group-item">
+                        <span>面朝大海，春暖花开</span>
+                        <div class="btn btn-default pull-right">投稿</div>
+                    </li>
+                    <li class="list-group-item">
+                        <span>面朝大海，春暖花开</span>
+                        <div class="btn btn-default pull-right">投稿</div>
+                    </li>
+                    <li class="list-group-item">
+                        <span>面朝大海，春暖花开</span>
+                        <div class="btn btn-default pull-right">投稿</div>
+                    </li>
+                    <li class="list-group-item">
+                        <span>面朝大海，春暖花开</span>
+                        <div class="btn btn-default pull-right">投稿</div>
+                    </li>
+                    <li class="list-group-item">
+                        <span>面朝大海，春暖花开</span>
+                        <div class="btn btn-default pull-right">投稿</div>
+                    </li>
+                </ul>
+            </section>
         </div>
     </div>
 </template>
@@ -101,15 +104,30 @@
                         title: "",
                         isSearch: false,
                         isSetting: false
-                    }
+                    },
+                    isMine: false
                 },
-                subject: Subject.data,
+                subject: {},
                 picUrl: this.$config.picUrl,
                 article: {
                     type: "other",
                     data: articleLvyou.data
                 }
             }
+        },
+        created() {
+            const promise = this.$request.getSubjectInfo(1, '879646528', '123456');
+            promise.then(data => {
+                const _data = JSON.parse(data);
+                if(Number(_data.code) === 1) {
+                    this.subject = _data.data.info;
+                    this.config.isMine = _data.data.isOwned;
+                } else {
+                    console.warn(_data.msg);
+                }
+            }).catch(err => {
+                console.log(err);
+            })
         },
         mounted() {
             this.$nextTick(function () {

@@ -26,12 +26,14 @@
 
 <style scoped lang="scss">
     .normal {
+        position: fixed;
         width: 100%;
         height: 40px;
         padding: 10px;
         border-bottom: 1px solid rgba(0,0,0,0.1);
         background-color: #fff;
         line-height: 20px;
+        z-index: 999;
 
         h3 {
             margin: 0;
