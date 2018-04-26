@@ -27,6 +27,7 @@ import PersonMyHistory from '@/components/person/MyHistory'
 import PersonMySubject from '@/components/person/MySubject'
 import PersonMyFocusSubject from '@/components/person/MyFocusSubject'
 import PersonMyNewSubject from '@/components/person/MyNewSubject'
+import PersonMyHead from '@/components/person/MyHead'
 import Setting from '@/components/person/Setting'
 import Blacklist from '@/components/person/Blacklist'
 import RecycleBin from '@/components/person/RecycleBin'
@@ -215,6 +216,12 @@ export default new Router({
                     name: 'setting',
                     components: {
                         body: Setting
+                    }
+                }, {
+                    path: 'myHead',
+                    name: 'personMyHead',
+                    components: {
+                        body: PersonMyHead
                     }
                 }, {
                     path: 'blacklist',

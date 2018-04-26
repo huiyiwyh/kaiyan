@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>专题接口文档</title>
+<title>用户接口文档</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style type="text/css">
 /* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
@@ -468,140 +468,33 @@ vertical-align:1px;
 </style>
 </head>
 <body>
-<h1 id="-">专题接口文档</h1>
-<h2 id="-">获取关注专题列表</h2>
+<h1 id="-">用户接口文档</h1>
+<h2 id="-">获取个人信息</h2>
 <blockquote>
-<p>用户进入关注界面且切换到专题 Tab 时，获取当前已关注的六项专题。</p>
+<p>用户进入指定“我的界面”时，自动获取当前用户的信息，包括用户昵称、头像该文章的内容（作者信息、文章信息、文章标题与正文），并显示在界面中。</p>
 </blockquote>
 <h4 id="-">前端请求</h4>
 <ul>
 <li>请求地址：</li><li>请求方式：POST</li><li>请求参数：</li></ul>
-<pre><code>budhs: &#39;879646529&#39; // 用户账号
-tehsc: 6           // 已获取的专题数
+<pre><code>jchen: &#39;879646529&#39; // 用户账号
 </code></pre><h4 id="-">后台响应</h4>
 <ul>
-<li>对应视图：view_subject_focus</li><li>响应内容：</li></ul>
-<pre><code class="lang-JS">// 成功响应
-{
-    &quot;code&quot;: &quot;1&quot;,
-    &quot;msg&quot;: &quot;&quot;,
-    &quot;data&quot;: [
-        {
-            &quot;id&quot;: 1,
-            &quot;name&quot;: &quot;旅游&quot;,
-            &quot;brief&quot;: &quot;“旅”是旅行，外出，即为了实现某一目的而在空间上从甲地到乙地的行进过程；“游”是外出游览、观光、娱乐，即为达到这些目的所作的旅行。二者合起来即旅游。所以，旅行偏重于行，旅游不但有“行”，且有观光、娱乐含义。&quot;,
-            &quot;thumbnail&quot;: &quot;kaiyan/subject/1.jpg&quot;,
-            &quot;countArticle&quot;: 2,
-            &quot;countFocus&quot;: 127
-        }, {
-            &quot;id&quot;: 2,
-            &quot;name&quot;: &quot;移动端开发&quot;,
-            &quot;brief&quot;: &quot;移动开发也称为手机开发，或叫做移动互联网开发。是指以手机、PDA、UMPC等便携终端为基础，进行相应的开发工作。&quot;,
-            &quot;thumbnail&quot;: &quot;kaiyan/subject/2.jpg&quot;,
-            &quot;countArticle&quot;: 3,
-            &quot;countFocus&quot;: 84
-        }, {
-            &quot;id&quot;: 3,
-            &quot;name&quot;: &quot;前端开发&quot;,
-            &quot;brief&quot;: &quot;扬我大前端！&quot;,
-            &quot;thumbnail&quot;: &quot;kaiyan/subject/3.jpg&quot;,
-            &quot;countArticle&quot;: 2,
-            &quot;countFocus&quot;: 1041
-        }
-    ]
-}
-
-// 失败响应
-{
-    &quot;code&quot;: &quot;0&quot;,
-    &quot;msg&quot;: &quot;具体原因&quot;,
-    &quot;data&quot;: []
-}
-</code></pre>
-<h2 id="-">获取专题列表</h2>
-<blockquote>
-<p>将“发现模块”的获取最新专题、最热门专题，“我的模块”中的获取我的专题结合成一个单独的接口。</p>
-</blockquote>
-<h4 id="-">前端请求</h4>
-<ul>
-<li>请求地址：</li><li>请求方式：POST</li><li>请求参数：</li></ul>
-<pre><code>vhdes: 1           // 检索类型
-kvjed: &#39;879646529&#39; // 用户账号
-wyejs: 6           // 已获取的专题数 或 已获取专题的最早日期
-</code></pre><ul>
-<li>请求案例：<br>```<br>// vhdes = 1 时<br>vhdes: 1<br>wyejs: &#39;2018-03-04 12:14&#39;</li></ul>
-<p>// vhdes = 2 时<br>vhdes:2<br>wyejs: 6</p>
-<p>// vhdes = 3 时<br>vhdes: 3,<br>kvjed: &#39;879646529&#39;</p>
-<pre><code>
-【说明】：检索类型。
-- **vhdes=1**：获取最新专题，注意，此时 wyejs 字段表示已获取专题的最早日期，也就是说前端会传递 2018-03-04 12:14 一个日期。先根据 date 字段 进行降序排列，然后获取 wyejs 日期之前的专题，每次获取 9 条数据。
-- **vhdes=2**：获取最热门专题，注意，此时 wyejs 字段表示已获取的专题数，view_subject 已经按照 countFocus 对数据进行降序排列（已经按热门顺序进行排列）。所以后台可以直接用 limit wyejs, 9 的方式进行获取。
-- **vhdes=3**：获取我的专题。因为每个用户最多只能有三个专题，因此没有必要对数据进行分批获取，可以直接一次性获取，故而前端就不必传递 wyejs 字段。后台根据前端传递的用户账号，获取该账号对应的专题即可。
-
-#### 后台响应
-- 对应视图：view_subject
-- 响应内容：
-
-```JS
-
-// 成功响应
-{
-    &quot;code&quot;: &quot;1&quot;,
-    &quot;msg&quot;: &quot;&quot;,
-    &quot;data&quot;: [
-        {
-            &quot;id&quot;: 2,
-            &quot;name&quot;: &quot;移动端开发&quot;,
-            &quot;nickname&quot;: &quot;游学者、墨槿&quot;,
-            &quot;thumbnail&quot;: &quot;kaiyan/subject/2.jpg&quot;,
-            &quot;countArticle&quot;: 3,
-            &quot;countFocus&quot;: 84
-        }, {
-            &quot;id&quot;: 3,
-            &quot;name&quot;: &quot;前端开发&quot;,
-            &quot;nickname&quot;: &quot;游学者、墨槿&quot;,
-            &quot;thumbnail&quot;: &quot;kaiyan/subject/3.jpg&quot;,
-            &quot;countArticle&quot;: 2,
-            &quot;countFocus&quot;: 1041
-        }
-    ]
-}
-
-// 失败响应
-{
-    &quot;code&quot;: &quot;0&quot;,
-    &quot;msg&quot;: &quot;具体原因&quot;,
-    &quot;data&quot;: []
-}
-</code></pre><h2 id="-">获取专题详情</h2>
-<blockquote>
-<p>用户点击感兴趣的专题封面（或专题名称）即可进入到专题详情页面。在该页面会显示有关专题的各项信息，以及该专题下最热门的文章以及最新投稿的文章。</p>
-</blockquote>
-<h4 id="-">前端请求</h4>
-<ul>
-<li>请求地址：</li><li>请求方式：POST</li><li>请求参数：</li></ul>
-<pre><code class="lang-JS">grbfs: 1            // 专题号
-ckege: &#39;879646529&#39;  // 用户账号
-</code></pre>
-<h4 id="-">后台响应</h4>
-<ul>
-<li>对应视图：view_subject</li><li>响应内容：</li></ul>
-<pre><code class="lang-JS">// 成功响应
-{
+<li>对应视图：view_user</li><li>响应内容：</li></ul>
+<pre><code class="lang-JS">{
     &quot;code&quot;: &quot;1&quot;,
     &quot;msg&quot;: &quot;&quot;,
     &quot;data&quot;: {
-        &quot;isOwned&quot;: false,
-        &quot;info&quot;: {
-            &quot;id&quot;: &quot;1&quot;,
-            &quot;name&quot;: &quot;旅游&quot;,
-            &quot;brief&quot;: &quot;“旅”是旅行，外出，即为了实现某一目的而在空间上从甲地到乙地的行进过程；“游”是外出游览、观光、娱乐，即为达到这些目的所作的旅行。二者合起来即旅游。所以，旅行偏重于行，旅游不但有“行”，且有观光、娱乐含义。&quot;,
-            &quot;thumbnail&quot;: &quot;kaiyan/subject/1.jpg&quot;,
-            &quot;owner&quot;: &quot;879646529&quot;,
-            &quot;nickname&quot;: &quot;耗子爱骑车&quot;,
-            &quot;countArticle&quot;: 2,
-            &quot;countFocus&quot;: 1041
-        }
+        &quot;nickname&quot;: &quot;游学者、墨槿&quot;,
+        &quot;head&quot;: &quot;kaiyan/head/879646528.jpg&quot;,
+        &quot;brief&quot;: &quot;人生不是戏剧，而我亦非主角&quot;,
+        &quot;countFocuus&quot;: 82,
+        &quot;countFans&quot;: 2365,
+        &quot;countLike&quot;: 15,
+        &quot;countArticle&quot;: 2,
+        &quot;countSubject&quot;: 1,
+        &quot;indexback&quot;: &quot;kaiyan/back/879646529.jpg&quot;,
+        &quot;countWords&quot;: 8452,
+        &quot;countLiked&quot;: 4521
     }
 }
 
@@ -612,26 +505,22 @@ ckege: &#39;879646529&#39;  // 用户账号
     &quot;data&quot;: []
 }
 </code></pre>
-<p>【说明】：后台在获取专题详情的同时，需要判断当前专题是否是用户所拥有的专题。怎么做？先通过专题号获取专题详情，然后判断 owner 与前端传递的用户账号是否匹配。若匹配，则将 isOwned 的值设置为 true；否则，则设置为 false。</p>
-<h3 id="-">新建专题</h3>
+<h2 id="-">修改用户头像</h2>
 <blockquote>
-<p>用户可以自行创建专题，但每人限创建三个专题。</p>
+<p>用户进入设置界面并点击个人头像，即可上传照片以修改自身用户头像。</p>
 </blockquote>
 <h4 id="-">前端请求</h4>
 <ul>
 <li>请求地址：</li><li>请求方式：POST</li><li>请求参数：</li></ul>
-<pre><code class="lang-JS">ythcs: &#39;879646529&#39;       // 用户账号
-utyeh: &#39;前端之路&#39;        // 专题名称
-ertqh: &#39;扬我大前端！&#39;    // 专题介绍
-oiyhx: &#39;base64 图片数据&#39; // 专题封面
-</code></pre>
-<h4 id="-">后台响应</h4>
+<pre><code>hcnsg: &#39;879646529&#39;  // 用户账号
+yshuc: ...          // base64 图片数据
+</code></pre><h4 id="-">后台响应</h4>
 <ul>
-<li>对应数据表：hsubject</li><li>响应内容：</li></ul>
+<li>对应数据表：ruser</li><li>响应内容：</li></ul>
 <pre><code class="lang-JS">// 成功响应
 {
     &quot;code&quot;: &quot;1&quot;,
-    &quot;msg&quot;: &quot;新建专题成功！&quot;,
+    &quot;msg&quot;: &quot;修改头像成功！&quot;,
     &quot;data&quot;: []
 }
 
@@ -642,26 +531,23 @@ oiyhx: &#39;base64 图片数据&#39; // 专题封面
     &quot;data&quot;: []
 }
 </code></pre>
-<p>【说明】：</p>
-<ul>
-<li>后台先判断当前用户创建的专题数是否已经到达上限。若达到上限，则返回相应的提示信息给前端；否则，往 hsubject 数据表中插入新的专题信息。</li><li>需要运用事务进行处理。</li></ul>
-<p>【注意】：Ydate 字段插入当前系统时间（时间格式：YYYY-MM-dd HH:mm）。</p>
-<h2 id="-">删除专题</h2>
+<p>【说明】：后台在收到前端传送的 base64 图片数据后写入到指定的文件夹（kaiyan/back）中，并以用户账号.jpg 的方式进行命名。将路径保存到 ruser 数据表中。</p>
+<h2 id="-">修改用户昵称</h2>
 <blockquote>
-<p>专题所有者可以删除已拥有的专题。</p>
+<p>操作过程同修改用户头像。</p>
 </blockquote>
 <h4 id="-">前端请求</h4>
 <ul>
 <li>请求地址：</li><li>请求方式：POST</li><li>请求参数：</li></ul>
-<pre><code class="lang-JS">rejcs: &#39;1&#39;  // 专题号
-</code></pre>
-<h4 id="-">后台响应</h4>
+<pre><code>ashce: &#39;879646529&#39;        // 用户账号
+ytesh: &#39;游学者、墨槿二号&#39; // 用户昵称
+</code></pre><h4 id="-">后台响应</h4>
 <ul>
-<li>有关的数据表：larticle、hsubject、kmesssubject</li><li>响应内容：</li></ul>
+<li>对应数据表：ruser</li><li>响应内容：</li></ul>
 <pre><code class="lang-JS">// 成功响应
 {
     &quot;code&quot;: &quot;1&quot;,
-    &quot;msg&quot;: &quot;删除专题成功！&quot;,
+    &quot;msg&quot;: &quot;修改用户昵称成功！&quot;,
     &quot;data&quot;: []
 }
 
@@ -672,29 +558,22 @@ oiyhx: &#39;base64 图片数据&#39; // 专题封面
     &quot;data&quot;: []
 }
 </code></pre>
-<p>【说明】：</p>
-<ol>
-<li>需要将属于该专题文章的 Psid 字段的值设置为 0（表示当前文章尚未投稿）；</li><li>给这些文章的用户发送消息，告知其投稿的专题已被删除“XXX专题已被管理员XXX删除”；</li><li>从 hsubject 基表中将符合该专题号的专题删除。</li></ol>
-<p>【注意】：操作涉及到多条 SQL 语句，因此必须使用事务进行处理。</p>
-<h2 id="-">文章投稿</h2>
+<h2 id="-">修改个人简介</h2>
 <blockquote>
-<p>用户可以在专题详情页面向该专题投稿。</p>
+<p>操作过程同修改用户头像。</p>
 </blockquote>
 <h4 id="-">前端请求</h4>
 <ul>
 <li>请求地址：</li><li>请求方式：POST</li><li>请求参数：</li></ul>
-<pre><code class="lang-JS">ychsw: &#39;879646529180327182534&#39;   // 文章号
-hsyce: &#39;1&#39; // 专题号
-anscj: &#39;879646529&#39; // 用户账号（发送者账号）
-rywjc: &#39;879646528&#39; // 专题管理员账号（接收者账号）
-</code></pre>
-<h4 id="-">后台响应</h4>
+<pre><code>tehas: &#39;879646529&#39;        // 用户账号
+bncjs: &#39;人生不是戏剧，而我亦非配角&#39; // 个人简介
+</code></pre><h4 id="-">后台响应</h4>
 <ul>
-<li>对应数据表：jexamine、umesssubject</li><li>响应内容：</li></ul>
+<li>对应数据表：ruser</li><li>响应内容：</li></ul>
 <pre><code class="lang-JS">// 成功响应
 {
     &quot;code&quot;: &quot;1&quot;,
-    &quot;msg&quot;: &quot;投稿申请已发送，请等待管理员审核&quot;,
+    &quot;msg&quot;: &quot;修改个人简介成功！&quot;,
     &quot;data&quot;: []
 }
 
@@ -705,31 +584,76 @@ rywjc: &#39;879646528&#39; // 专题管理员账号（接收者账号）
     &quot;data&quot;: []
 }
 </code></pre>
-<p>【说明】：</p>
-<ul>
-<li>分别将前端传递的文章号、专题号、用户账号插入到 jexamine 数据表中的 Caid、Usid、Gaccount 等字段，Rid 字段为自增长字段无需插入，Edate 字段取当前系统时间。</li><li>然后将前端传递的文章号、专题号、发送者账号、接收者账号插入到 umesssubject 数据表中的 Carticle、Isubject、Wsender、Qreceiver 等字段。Did 字段为自增长字段无需插入，Ydaye 字段取当前系统时间。</li></ul>
-<h2 id="-">获取未投稿文章</h2>
+<h2 id="-">修改登录密码</h2>
 <blockquote>
-<p>用户在投稿前可以先获取自己未投稿的文章。</p>
+<p>操作过程同修改用户头像。</p>
 </blockquote>
 <h4 id="-">前端请求</h4>
 <ul>
 <li>请求地址：</li><li>请求方式：POST</li><li>请求参数：</li></ul>
-<pre><code class="lang-JS">hskcu: &#39;879646529&#39;   // 用户账号
-</code></pre>
-<h4 id="-">后台响应</h4>
+<pre><code>jksnd: &#39;879646529&#39;        // 用户账号
+nklsh: &#39;加密后的密码&#39;     // 原密码
+wrqsd: &#39;加密后的密码&#39;     // 新密码
+</code></pre><h4 id="-">后台响应</h4>
 <ul>
-<li>对应视图：view_article</li><li>响应内容：</li></ul>
+<li>对应数据表：ruser</li><li>响应内容：</li></ul>
+<pre><code class="lang-JS">// 成功响应
+{
+    &quot;code&quot;: &quot;1&quot;,
+    &quot;msg&quot;: &quot;修改登录密码成功！&quot;,
+    &quot;data&quot;: []
+}
+
+// 失败响应
+{
+    &quot;code&quot;: &quot;0&quot;,
+    &quot;msg&quot;: &quot;具体原因&quot;,
+    &quot;data&quot;: []
+}
+</code></pre>
+<p>【过程】：后台收到前端发送的用户账号和旧密码，先进行比对。比对正确后再将密码更改为新密码。</p>
+<h2 id="-">获取动态信息</h2>
+<blockquote>
+<p>个人主页的动态栏目记录了当前用户最近的一些行为，例如喜欢了某某文章、关注了某某作者等。每次获取最近的十条记录。</p>
+</blockquote>
+<h4 id="-">前端请求</h4>
+<ul>
+<li>请求地址：</li><li>请求方式：POST</li><li>请求参数：</li></ul>
+<pre><code>nhcjs: &#39;879646528&#39; // 用户账号
+asxcd: &#39;2018-03-05 18:18&#39; // 已获取动态中的最早日期
+</code></pre><h4 id="-">后台响应</h4>
+<ul>
+<li>对应视图：view_action</li><li>响应内容：</li></ul>
 <pre><code class="lang-JS">// 成功响应
 {
     &quot;code&quot;: &quot;1&quot;,
     &quot;msg&quot;: &quot;&quot;,
     &quot;data&quot;: [
         {
-            &quot;title&quot;: &quot;浅谈JavaScript中的闭包以及模块机制&quot;,
+            &quot;key&quot;: &quot;789465178951&quot;,
+            &quot;value&quot;: &quot;《面朝大海，春暖花开》&quot;,
+            &quot;type&quot;: 4,
+            &quot;date&quot;: &quot;2018-03-09 18:18&quot;
         }, {
-
-            &quot;title&quot;: &quot;Andorid：这是一份Handler消息传递机制的使用教程&quot;,
+            &quot;key&quot;: &quot;2&quot;,
+            &quot;value&quot;: &quot;Web 前端之路&quot;,
+            &quot;type&quot;: 3,
+            &quot;date&quot;: &quot;2018-03-08 18:18&quot;
+        }, {
+            &quot;key&quot;: &quot;8796465291803254565&quot;,
+            &quot;value&quot;: &quot;《浅谈HTML5 Geolocation》&quot;,
+            &quot;type&quot;: 2,
+            &quot;date&quot;: &quot;2018-03-07 18:18&quot;
+        }, {
+            &quot;key&quot;: &quot;8796465291803254565&quot;,
+            &quot;value&quot;: &quot;《计算机网络：这是一份全面&amp;详细的TCP协议攻略》&quot;,
+            &quot;type&quot;: 1,
+            &quot;date&quot;: &quot;2018-03-06 18:18&quot;
+        }, {
+            &quot;key&quot;: &quot;879646528&quot;,
+            &quot;value&quot;: &quot;耗子爱骑车&quot;,
+            &quot;type&quot;: 0,
+            &quot;date&quot;: &quot;2018-03-05 18:18&quot;
         }
     ]
 }
@@ -741,89 +665,9 @@ rywjc: &#39;879646528&#39; // 专题管理员账号（接收者账号）
     &quot;data&quot;: []
 }
 </code></pre>
-<p>【提示】：根据用户账号和 sid 字段为 0 组合检索（sid 为 0，表示当前文章未投稿）。 </p>
-<h2 id="-">获取待审核文章</h2>
-<blockquote>
-<p>专题管理员能够获取待审核的投稿文章。</p>
-</blockquote>
-<h4 id="-">前端请求</h4>
+<p>【type 分类】：</p>
 <ul>
-<li>请求地址：</li><li>请求方式：POST</li><li>请求参数：</li></ul>
-<pre><code class="lang-JS">ueysj: &#39;123&#39;   // 专题号
-</code></pre>
-<h4 id="-">后台响应</h4>
-<ul>
-<li>对应视图：view_examine</li><li>响应内容：</li></ul>
-<pre><code class="lang-JS">// 成功响应
-{
-    &quot;code&quot;: &quot;1&quot;,
-    &quot;msg&quot;: &quot;&quot;,
-    &quot;data&quot;: [
-        {
-            &quot;id&quot;: 1,
-            &quot;aid&quot;: &quot;879646529&quot;,
-            &quot;title&quot;: &quot;浅谈JavaScript中的闭包以及模块机制&quot;,
-            &quot;nickname&quot;: &quot;游学者、墨槿&quot;,
-            &quot;account&quot;: &quot;879646529&quot;,
-            &quot;head&quot;: &quot;kaiyan/head/879646529.jpg&quot;,
-            &quot;date&quot;: &quot;2018-04-21 14:32:14&quot;
-        }, {
-            &quot;id&quot;: 2,
-            &quot;aid&quot;: &quot;879646529&quot;,
-            &quot;title&quot;: &quot;Andorid：这是一份Handler消息传递机制的使用教程&quot;,
-            &quot;nickname&quot;: &quot;游学者、墨槿&quot;,
-            &quot;account&quot;: &quot;879646529&quot;,
-            &quot;head&quot;: &quot;kaiyan/head/879646529.jpg&quot;,
-            &quot;date&quot;: &quot;2018-04-21 14:35:21&quot;
-        }
-    ]
-}
-
-// 失败响应
-{
-    &quot;code&quot;: &quot;0&quot;,
-    &quot;msg&quot;: &quot;具体原因&quot;,
-    &quot;data&quot;: []
-}
-</code></pre>
-<p>【说明】：根据前端传递的专题号，到 view_examine 获取该专题号对应的所有待审核文章。</p>
-<h2 id="-">管理待审核文章</h2>
-<blockquote>
-<p>专题管理员可以管理待审核文章，通过或者拒绝。</p>
-</blockquote>
-<h4 id="-">前端请求</h4>
-<ul>
-<li>请求地址：</li><li>请求方式：POST</li><li>请求参数：</li></ul>
-<pre><code class="lang-JS">eshhd: &#39;1&#39;  // 审核号
-twrch: &#39;1&#39;  // 管理操作
-</code></pre>
-<p>【说明】：管理操作</p>
-<ul>
-<li><strong>twrch=0</strong>：拒绝该待审核文章。</li><li><strong>twrch=1</strong>：通过该待审核文章。</li></ul>
-<h4 id="-">后台响应</h4>
-<ul>
-<li>对应数据表：jexamine</li><li>响应内容：</li></ul>
-<pre><code class="lang-JS">// 成功响应
-{
-    &quot;code&quot;: &quot;1&quot;,
-    &quot;msg&quot;: &quot;通过/拒绝XXX待审核文章成功！&quot;,
-    &quot;data&quot;: []
-}
-
-// 失败响应
-{
-    &quot;code&quot;: &quot;0&quot;,
-    &quot;msg&quot;: &quot;具体原因&quot;,
-    &quot;data&quot;: []
-}
-</code></pre>
-<p>【说明】：无论是拒绝还是通过文章，都需要将该审核号对应的数据从 jexamine 数据表中删除。</p>
-<p>【步骤】：拒绝</p>
-<ol>
-<li>将已拒绝的文章从 jexamine 数据表中删除。</li><li>向 smessage 数据表中插入新的数据：Pcontent 可以为 XXX（管理员姓名）拒绝了您的投稿。</li></ol>
-<p>【步骤】：通过</p>
-<ol>
-<li>修改 larticle 数据表中目前通过文章的 Psid 字段，将字段的值修改为专题号。</li><li>将已通过文章的数据从 jexamine 数据表中删除。</li><li>向 smessage 数据表中插入新的数据：Pcontent 可以为 XXX（管理员姓名）通过了您的投稿。</li></ol>
+<li><strong>0</strong>：关注（作者）；</li><li><strong>1</strong>：喜欢（文章）；</li><li><strong>2</strong>：发表（文章）；</li><li><strong>3</strong>：订阅（专题）；</li><li><strong>4</strong>：评论（文章）。</li></ul>
 
 </body>
 </html>

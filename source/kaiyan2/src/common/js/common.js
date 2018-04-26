@@ -20,10 +20,6 @@ let Module = (function() {
         get: get
     }
 })();
-
-Module.define("Ajax", [], function() {
-
-});
 Module.define("Dialog", [], function() {
     let open = (container, setting) => {
         let con = null;

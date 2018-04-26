@@ -215,9 +215,15 @@ const Request = {
         ], token);
     },
     getUserAction(account, earliestDate, token) {
-        return Ajax.post('http://115.159.59.72/kaiyan/api/setUserAction.php', [
+        return Ajax.post('http://115.159.59.72/kaiyan/api/getUserAction.php', [
             "nhcjs=" + account,
             'asxcd=' + earliestDate
+        ], token);
+    },
+    getUserHistory(account, earliestDate, token) {
+        return Ajax.post('http://115.159.59.72/kaiyan/api/getUserHistory.php', [
+            "ychwn=" + account,
+            'siwhb=' + earliestDate
         ], token);
     },
     /**
@@ -311,6 +317,99 @@ const Request = {
         return Ajax.post('http://115.159.59.72/kaiyan/api/getSearchArticle.php', [
             'abehs=' + content,
             'jwkah=' + number
+        ], token)
+    },
+    /**
+     * 获取文章列表
+     * @param type        检索类型
+     * @param param       检索内容
+     * @param articleType 文章类型
+     * @param number      划分条件
+     * @param token       身份凭证
+     * @returns {*}       promise 对象
+     */
+    getArticleList(type, param, articleType, number, token) {
+        return Ajax.post('http://115.159.59.72/kaiyan/api/getArticleList.php', [
+            'dhcjs=' + type,
+            'bvnsj=' + param,
+            'utysh=' + articleType,
+            'idonx=' + number
+        ], token)
+    },
+    /**
+     * 获取喜欢文章
+     * @param account 用户账号
+     * @param number  已获取文章最早日期
+     * @param token   身份凭证
+     * @returns {*}   promise 对象
+     */
+    getArticleLike(account, number, token) {
+        return Ajax.post('http://115.159.59.72/kaiyan/api/getArticleLike.php', [
+            'xdgje=' + account,
+            'uegsb=' + number
+        ], token)
+    },
+    /**
+     * 获取文章详情
+     * @param articleId 文章号
+     * @param account   用户账号
+     * @param token     身份凭证
+     * @returns {*}     promise 对象
+     */
+    getArticleDetail(articleId, account, token) {
+        return Ajax.post('http://115.159.59.72/kaiyan/api/getArticleDetail.php', [
+            'rwhcs=' + articleId,
+            'uwhgc=' + account
+        ], token)
+    },
+    /**
+     * 获取文章评论
+     * @param articleId 文章号
+     * @param number    已获取评论数
+     * @param token
+     * @returns {*}
+     */
+    getArticleComment(articleId, number, token) {
+        return Ajax.post('http://115.159.59.72/kaiyan/api/getArticleComment.php', [
+            'hnksa=' + articleId,
+            'ncvbs=' + number
+        ], token)
+    },
+    /**
+     * 获取黑名单列表
+     * @param account 用户账号
+     * @param number  已获取黑名单用户数
+     * @param token   身份凭证
+     * @returns {*}   promise 对象
+     */
+    getBlacklist(account, number, token) {
+        return Ajax.post('http://115.159.59.72/kaiyan/api/getBlacklist.php', [
+            'ewysj=' + account,
+            'uwyhe=' + number
+        ], token)
+    },
+    /**
+     * 加入黑名单
+     * @param account      用户账号
+     * @param blackAccount 加入黑名单账号
+     * @param token        身份凭证
+     * @returns {*}        promise 对象
+     */
+    setBlacklist(account, blackAccount, token) {
+        return Ajax.post('http://115.159.59.72/kaiyan/api/setBlacklist.php', [
+            'cjrhw=' + account,
+            'chewj=' + blackAccount
+        ], token)
+    },
+    /**
+     * 移除黑名单用户
+     * @param id    黑名单号
+     * @param token 身份凭证
+     * @returns {*} promise 对象
+     */
+    removeBlacklist(id, token) {
+        return Ajax.post('http://115.159.59.72/kaiyan/api/removeBlacklist.php', [
+            'cjnek=' + id
         ], token)
     }
 };

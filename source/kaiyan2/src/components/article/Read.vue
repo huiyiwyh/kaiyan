@@ -1,6 +1,6 @@
 <template>
     <div>
-        <header>
+        <header class="normal">
             <i @click="routerBack()" class="iconfont icon-back pull-left"></i>
             <i class="iconfont icon-list pull-right"></i>
             <ul class="con-option sr-only">
@@ -14,220 +14,80 @@
                 </li>
             </ul>
         </header>
-        <section class="con-header">
-            <h3>Android：这是一份Handler消息传递机制的使用教程</h3>
-            <div class="header-author">
-                <img src="http://115.159.59.72/kaiyan/head/879646529.jpg" alt="head" />
-                <span class="ml-10 font-16 font-bold">游学者、墨槿</span>
-            </div>
-            <div class="header-date">
-                <span>2018-03-05 18:18</span>
-                <div class="btn btn-default pull-right mt-5">移动互联网</div>
-            </div>
-        </section>
-        <section class="con-article">
-            <p>如今，单身贵族越来越多，当然有些人自愿的，有些却是被动单着。这个现象跟求职市场颇有几分相似？</p>
-            <p>一边是用人单位招不到合适人才，另一边毕业即失业再正常
-                不过，年纪轻轻就回家啃老的不在少数。</p>
-            <p>为什么会出现这种现象？</p>
-            <p>麦叔认为，有大环境因素，当今社会生活压力徒增，人们择偶趋于理性，更注重精神诉求。</p>
-            <p>再
-                有，社会在进步，女性地位在提升，结婚不再出于本能，而更多是情感需求，不结婚也可以过得很好。</p>
-            <div class="image-package">
-                <div class="image-container" style="max-width: 500px; max-height: 213px;">
-                    <div class="image-container-fill" style="padding-bottom: 42.6%;"></div>
-                    <div class="image-view" data-width="500" data-height="213"><img
-                        data-original-src="//upload-images.jianshu.io/upload_images/2259045-9d53fe5cfc4a0a38" data-origin
-                        al-width="500" data-original-height="213" data-original-format="image/jpeg"
-                        data-original-filesize="14497"></div>
+        <div class="body">
+            <section class="con-header">
+                <h3 v-text="article.title"></h3>
+                <div class="header-author">
+                    <img :src="'http://115.159.59.72/' + article.head" alt="head" />
+                    <span class="ml-10 font-16 font-bold" v-text="article.nickname"></span>
                 </div>
-                <div class="image-caption"></div>
-            </div>
-            <p>当然，也有个人因素，很多人看一些情感毒鸡汤之类，不知不觉也被影响着。</p>
-            <blockquote>
-                <p>你爱我就应该无条件地满足我，不然就是不够爱我。</p>
-                <p>我只要努力减肥，让自己瘦下来，他就一定会爱上我。</p>
-            </blockquote>
-            <p>要想摆脱单身，需要在意识和行动上双管齐下。</p>
-            <p></p>
-            <p><b>在拥有爱情之前，先具备爱人的能力。在爱他人之前，先学会爱自己。</b></p>
-            <p><br></p>
-            <h2>0
-                2</h2>
-            <h3>世上没有完美的爱情，适合的才是最好的。</h3>
-            <p>曾经看到这样一个段子：</p>
-            <blockquote>
-                <p>我要追一个心仪的女生，有没有什么秘籍呢？</p>
-                <p>只要满足他们的幻想就行。</p>
-                <p>那是什么样的幻想呢？</p>
-                <p>帅气多金、高知性感、才华横溢，不时还得有一些幽默感，最重要的有一份响当当的工作。</p>
-            </blockquote>
-            <p>在这些条件里，怎么就没有女生最看重的<b>“对她好”</b>，难道说现在的女孩子已经进化到不需要这个了？</p>
-            <p>曾经，我们会给另一半附上一箩筐条件，直到
-                你爱上那个人，才发现很多条件都是多余的。不符合预设标准的他，你们且相处得很融洽。</p>
-            <p>你觉得吴彦祖很好，但他不是你的菜。在感情方面，适合自己的才是最好的。</p>
-            <div class="image-package">
-                <div class="image-container" style="max-width: 400px; max-height: 203px;">
-                    <div class="image-container-fill" style="padding-bottom: 50.74999999999999%;"></div>
-                    <div class="image-view" data-width="400" data-height="203"><img
-                        src="https//upload-images.jianshu.io/upload_images/2259045-b537127c4a575217" data-origin
-                        al-width="400" data-original-height="203" data-original-format="image/gif"
-                        data-original-filesize="281132"></div>
+                <div class="header-date">
+                    <span v-text="article.date"></span>
+                    <div @click="goTo('subject', { id: article.sid })" class="btn btn-default pull-right mt-5" v-text="article.subjectName"></div>
                 </div>
-                <div class="image-caption"></div>
-            </div>
-            <p>很多女生都有“紫霞仙子”情结：</p>
-            <blockquote><p>我的意中人，他是一个盖世英雄。有一天，他会脚踏七彩祥云身穿战甲来娶我！</p></blockquote>
-            <p>《大话西游》
-                的经典，就在于它满足了我们对爱情的美好遐想，但也就仅此而已。</p>
-            <p><br></p>
-            <div class="image-package">
-                <div class="image-container" style="max-width: 400px; max-height: 225px;">
-                    <div class="image-container-fill" style="padding-bottom: 56.25%;"></div>
-                    <div class="image-view" data-width="400" data-height="225"><img
-                        data-original-src="//upload-images.jianshu.io/upload_images/2259045-f941dbd766808902" data-origin
-                        al-width="400" data-original-height="225" data-original-format="image/gif"
-                        data-original-filesize="459861"></div>
-                </div>
-                <div class="image-caption"></div>
-            </div>
-            <p>琼瑶阿姨是华人世界很多人的言情教母，她的作品影响了几代人的思想。</p>
-            <p>人不风流枉少年，哪个少女不怀春？</p>
-            <p><b>爱便轰轰烈烈，不爱则缠绵悱恻。男的英气
-                逼人、儒雅潇洒，女的貌美如花、琴棋书画。</b></p>
-            <div class="image-package">
-                <div class="image-container" style="max-width: 432px; max-height: 243px;">
-                    <div class="image-container-fill" style="padding-bottom: 56.25%;"></div>
-                    <div class="image-view" data-width="432" data-height="243"><img
-                        data-original-src="//upload-images.jianshu.io/upload_images/2259045-82349b62da059eb4" data-origin
-                        al-width="432" data-original-height="243" data-original-format="image/gif"
-                        data-original-filesize="1001969"></div>
-                </div>
-                <div class="image-caption"></div>
-            </div>
-            <!--<p>（原标题：“天呐！”特朗普让白宫医生任内阁部长）</p><p>当地时间28日，美国总统特朗普突然宣布退伍军人事务部部长舒尔金将离任，接替他的人是白宫医生罗尼·杰克逊。上周，杰克逊刚刚晋升为海军少将。不少美国媒体认为，替换舒尔金是特朗普高级幕僚团的又一次重大变革，提名杰克逊更是“令人震惊”。外界普遍质疑其缺乏管理经验，会给退伍军人事务部造成“管理真空”。</p><p>据《纽约时报》29日报道，在28日的声明中，特朗普对杰克逊不吝赞美之词：“杰克逊少将训练有素，他本人就是高素质的服役人员。他亲眼见证过老兵作出的巨大牺牲，对这些人为我们国家的付出怀抱着深深的谢意。” 报道说，现年50岁的杰克逊学医出身，于1995年加入美国海军，成为一名军医，多次在海外轮驻。2006年，杰克逊被任命为白宫医生，先后服务过小布什、奥巴马和特朗普三位总统。</p><p>据美国有线电视新闻网（CNN）29日报道，特朗普上台后，杰克逊迅速与总统打得火热。今年1月杰克逊陪同特朗普进行了任内首次体检。在上个月的一次募捐宴会上，特朗普大赞杰克逊“举止就像好莱坞巨星”。美国彭博新闻社29日称，特朗普经常在朋友面前表示，“我喜欢这个人”。去年9月，舒尔金曾举荐杰克逊当退伍军人部副部长。消息人士透露，特朗普认为杰克逊对退伍军人事务很了解，此外他还有一个优势：因为是三任总统的医生，杰克逊已经通过安全检查（这是担任退伍军人事务部部长必须的条件），而且他熟知特朗普的健康情况。</p><p>杰克逊为外界所熟知，还是在今年1月16日一次白宫简报会上。当时外界对特朗普的精神状态是否适合担任总统充满疑问，杰克逊在简报会上事无巨细地回答了记者有关特朗普健康的提问。他开门见山地宣布，“总统的整体健康状况非常好。他很容易通过了旨在测试他精神状态的认知评估。没有任何理由认为总统的精神有问题”。杰克逊说，特朗普不碰烟酒，这是他身体健康的原因，他肯定能干完第一个总统任期。</p><p>作为职业军医，杰克逊并没有管理行政机构的经历。这也成为外界质疑他的主要原因。美国“政治”网站28日引述一名前退伍军人事务部高官的话说，“我的第一反应是：‘我的天呐’。杰克逊一点经验都没有，而退伍军人事务部又是个最难管理的部门，因为那里充满了政治争斗。” 美国《大西洋月刊》28日称，已经下台的舒尔金上任前就是退伍军人事务部副部长，而舒尔金的前任麦克唐纳则是宝洁公司首席执行官，他们的经验显然要更丰富。文章调侃说，至少杰克逊在谈论特朗普健康状况时表现不错。毕竟从过去到现在，“公开场合像演员的良好表现”一直是特朗普挑选人才的重要标准。《纽约时报》29日称，作为一国元首，特朗普喜欢自己的圈子里是熟悉的面孔，只要对胃口，特朗普就给他们封个官。实际上，白宫还将迎来一名真正的演员——卡洛琳·桑恩。《华盛顿邮报》28日报道说，这位曾演过《舞动青春》的童星今年22岁，将担任白宫新闻助理。报道称，卡洛琳曾在白宫做过实习生，还在众议院多数党领袖麦卡锡办公室实习过。</p><p>在被辞掉后，舒尔金29日在《纽约时报》撰文炮轰华盛顿的政治氛围，称“那里变得有毒、混乱、礼仪丧失、充满破坏性，已经让我无法完成本职工作”。他表示，在即将离开华盛顿之际，“我不停思考：服务国家不应该如此艰难”。舒尔金称自己行事正直，却“被错误指责，指责者希望我别挡道”。</p><p>美国国会议员也大都对杰克逊的任命不以为然。美国参议院退伍军人委员会主席艾萨克森28日称，参议院需要知道杰克逊的更多信息才能决定是否确认这一提名。美国残废退伍军人组织和美国退伍军人协会则警告称，退伍军人事务部可能出现“管理真空”。众议院退伍军人委员会主席罗伊28日则表示，虽然他尊重特朗普的决定，但是“到头来，内阁成员都根据总统好恶遴选”。</p><p>美国退伍军人事务部要为2000万名退伍军人的健康和福利负责。《纽约时报》认为，杰克逊无疑会面临一系列挑战，退伍军人事务部是美国政府的第二大部门，雇员36万之多，多年来一直面临办公设备老化和机构臃肿的诟病。民主党、部分温和共和党人以及退伍军人协会都担心，辞掉舒尔金是特朗普政府为进一步对退伍军人事务部进行激进改革铺路，让退伍军人的服务更多来自私有部门，而不是靠国家财政支出。而这是退伍军人组织极力反对的。美国沃克斯新闻网28日称，特朗普可能要与支持他的老兵们展开一场“政治战斗”。</p><p>本文来源：环球时报-环球网 。更多精彩，请登录环球网http://www.huanqiu.com责任编辑：姬雪莹_NN6784</p>-->
-        </section>
-        <section class="con-comment">
-            <div class="comment-header">
-                <div class="header-article">
-                    评论数&nbsp;
-                    <span v-text="'518'"></span>
-                </div>
-                <div class="dropdown" id="menu">
-                    <button class="btn btn-default dropdown-toggle">
-                        <span v-text="choice.title"></span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li @click="choose(0)"><a href="javascript:;">按时间正序</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li @click="choose(1)"><a href="javascript:;">按时间倒序</a></li>
-                    </ul>
-                </div>
-            </div>
-            <ul class="comment-list">
-                <li class="comment-item">
-                    <div class="comment-author">
-                        <img src="http://115.159.59.72/kaiyan/head/879646529.jpg" alt="head" />
-                        <span class="ml-5 font-16 font-bold">游学者、墨槿</span>
-                        <i class="iconfont icon-comment pull-right ml-10"></i>
-                        <span class="color-intro pull-right font-12">2018-03-05 18:18</span>
+            </section>
+            <section class="con-read" v-html="article.content"></section>
+            <section class="con-comment">
+                <div class="comment-header">
+                    <div class="header-article">
+                        评论数&nbsp;
+                        <span v-text="article.countComment"></span>
                     </div>
-                    <div class="comment-content">人生若只如初见</div>
-                    <ul class="comment-reply">
-                        <li class="reply-item">
-                            <span class="color-main">耗子爱骑车：@</span>
-                            <span class="color-main">游学者、墨槿</span>&nbsp;
-                            <span>同意</span>
-                        </li>
-                        <li class="reply-item">
-                            <span class="color-main">耗子爱骑车：@</span>
-                            <span class="color-main">游学者、墨槿</span>&nbsp;
-                            <span>同意</span>
-                        </li>
-                        <li class="reply-item">
-                            <span class="color-main">耗子爱骑车：@</span>
-                            <span class="color-main">游学者、墨槿</span>&nbsp;
-                            <span>同意</span>
-                        </li>
-                    </ul>
-                </li>
-                <li class="comment-item">
-                    <div class="comment-author">
-                        <img src="http://115.159.59.72/kaiyan/head/879646529.jpg" alt="head" />
-                        <span class="ml-5 font-16 font-bold">游学者、墨槿</span>
-                        <i class="iconfont icon-comment pull-right ml-10"></i>
-                        <span class="color-intro pull-right font-12">2018-03-05 18:18</span>
-                    </div>
-                    <div class="comment-content">人生若只如初见</div>
-                    <ul class="comment-reply">
-                        <li class="reply-item">
-                            <span class="color-main">耗子爱骑车：@</span>
-                            <span class="color-main">游学者、墨槿</span>&nbsp;
-                            <span>同意</span>
-                        </li>
-                        <li class="reply-item">
-                            <span class="color-main">耗子爱骑车：@</span>
-                            <span class="color-main">游学者、墨槿</span>&nbsp;
-                            <span>同意</span>
-                        </li>
-                        <li class="reply-item">
-                            <span class="color-main">耗子爱骑车：@</span>
-                            <span class="color-main">游学者、墨槿</span>&nbsp;
-                            <span>同意</span>
-                        </li>
-                    </ul>
-                </li>
-                <li class="comment-item">
-                    <div class="comment-author">
-                        <img src="http://115.159.59.72/kaiyan/head/879646529.jpg" alt="head" />
-                        <span class="ml-5 font-16 font-bold">游学者、墨槿</span>
-                        <i class="iconfont icon-comment pull-right ml-10"></i>
-                        <span class="color-intro pull-right font-12">2018-03-05 18:18</span>
-                    </div>
-                    <div class="comment-content">人生若只如初见</div>
-                    <ul class="comment-reply">
-                        <li class="reply-item">
-                            <span class="color-main">耗子爱骑车：@</span>
-                            <span class="color-main">游学者、墨槿</span>&nbsp;
-                            <span>同意</span>
-                        </li>
-                        <li class="reply-item">
-                            <span class="color-main">耗子爱骑车：@</span>
-                            <span class="color-main">游学者、墨槿</span>&nbsp;
-                            <span>同意</span>
-                        </li>
-                        <li class="reply-item">
-                            <span class="color-main">耗子爱骑车：@</span>
-                            <span class="color-main">游学者、墨槿</span>&nbsp;
-                            <span>同意</span>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </section>
-        <section class="con-oper">
-            <div class="oper-item">
-                <i class="iconfont icon-comment"></i>
-                <div>评论&nbsp;<span>815</span></div>
-            </div>
-            <div class="oper-item">
-                <i class="iconfont icon-unlike"></i>
-                <div>喜欢&nbsp;<span>1000</span></div>
-            </div>
-            <div class="oper-item">
-                <i class="iconfont icon-book"></i>
-                <div>阅读&nbsp;<span>2534</span></div>
-            </div>
-        </section>
-        <section class="con-reply">
-            <textarea placeholder="@耗子爱骑车"></textarea>
-            <div class="btn btn-default pull-right mt-10">发表评论</div>
-        </section>
+                    <!--<div class="dropdown" id="menu">-->
+                        <!--<button class="btn btn-default dropdown-toggle">-->
+                            <!--<span v-text="choice.title"></span>-->
+                            <!--<span class="caret"></span>-->
+                        <!--</button>-->
+                        <!--<ul class="dropdown-menu">-->
+                            <!--<li @click="choose(0)"><a href="javascript:;">按时间正序</a></li>-->
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li @click="choose(1)"><a href="javascript:;">按时间倒序</a></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                </div>
+                <ul class="comment-list">
+                    <li class="comment-item" v-for="item in comment">
+                        <div class="comment-author">
+                            <img :src="'http://115.159.59.72/' + item.head" alt="head" />
+                            <span class="ml-5 font-16 font-bold" v-text="item.nickname"></span>
+                            <i class="iconfont icon-comment pull-right ml-10"></i>
+                            <span class="color-intro pull-right font-12" v-text="item.date"></span>
+                        </div>
+                        <div class="comment-content" v-text="item.content"></div>
+                        <ul class="comment-reply">
+                            <li class="reply-item" v-for="subItem in item.subComment">
+                                <span class="color-main" v-text="subItem.nickname + '：@'"></span>
+                                <span class="color-main" v-text="item.nickname"></span>&nbsp;
+                                <span v-text="subItem.content"></span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section class="con-oper">
+                <div class="oper-item">
+                    <i class="iconfont icon-comment"></i>
+                    <div>评论&nbsp;<span v-text="article.countComment"></span></div>
+                </div>
+                <div class="oper-item">
+                    <i class="iconfont icon-unlike"></i>
+                    <div>喜欢&nbsp;<span v-text="article.countLike"></span></div>
+                </div>
+                <div class="oper-item">
+                    <i class="iconfont icon-book"></i>
+                    <div>阅读&nbsp;<span v-text="article.countRead"></span></div>
+                </div>
+            </section>
+            <section class="con-reply sr-only">
+                <textarea placeholder="@耗子爱骑车"></textarea>
+                <div class="btn btn-default pull-right mt-10">发表评论</div>
+            </section>
+        </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
+
     export default {
         name: "Read",
         data() {
@@ -236,24 +96,59 @@
                     title: '按时间正序',
                     option: 0
                 },
+                article: {},
+                comment: []
             }
         },
         mounted() {
-            this.$nextTick(function () {
-                $("#menu").on("click", function (e) {
-                    let target = e.target;
-                    if (target.tagName === "SPAN" || target.tagName === "BUTTON") {
-                        $(this).find(".dropdown-menu").slideDown(500);
-                    } else if (target.tagName === "A") {
-                        $(this).find(".dropdown-menu").slideUp(500);
-                    }
-                });
-                console.log(this.$route.params.aid);
+            $("#menu").on("click", function (e) {
+                let target = e.target;
+                if (target.tagName === "SPAN" || target.tagName === "BUTTON") {
+                    $(this).find(".dropdown-menu").slideDown(500);
+                } else if (target.tagName === "A") {
+                    $(this).find(".dropdown-menu").slideUp(500);
+                }
             });
+            console.log(this.$route.params.aid);
+        },
+        created() {
+            const promise = this.$request.getArticleDetail('879646528180323135935', '879646529', '123456');
+            promise.then(data => {
+                const _data = JSON.parse(data);
+                if(Number(_data.code) === 1) {
+                    this.article = _data.data;
+                } else {
+                    console.warn(_data.msg);
+                }
+            }).catch(err => {
+                console.log(err);
+            }).then(() => {
+                const $imgs = $(".con-article").find("img");
+                $imgs.each((index, item) => {
+                    item.setAttribute("src", "https:" + item.getAttribute("data-original-src"));
+                })
+            });
+            const promiseForComment = this.$request.getArticleComment('879646528180323135935', 10, '123456');
+            promiseForComment.then(data => {
+                const _resp = JSON.parse(data);
+                if(Number(_resp.code) === 1) {
+                    this.comment = _resp.data;
+                } else {
+                    console.warn(_resp.msg);
+                }
+            }).catch(err => {
+                console.log(err);
+            })
         },
         methods: {
             routerBack() {
                 this.$router.back();
+            },
+            goTo(page, param) {
+                this.$router.push({
+                    name: page,
+                    params: param
+                })
             },
             choose(option) {
                 if (Number(option) === 0) {
@@ -261,61 +156,15 @@
                 } else {
                     this.choice.title = "热门文章";
                 }
-
                 this.choice.option = option;
             }
         }
     }
 </script>
 
-<style scoped lang="scss">
-    header {
-        position: relative;
-        width: 100%;
-        height: 40px;
-        padding: 10px;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-        background-color: #fff;
-        line-height: 20px;
-
-        h3 {
-            margin: 0;
-            font-size: 20px;
-            font-weight: bold;
-        }
-        .iconfont {
-            font-size: 20px;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-        .con-option {
-            width: 120px;
-            height: 80px;
-            position: absolute;
-            top: 40px;
-            right: 0;
-            margin-bottom: -1px;
-            background-color: #fff;
-            border: 1px solid rgba(0,0,0,0.1);
-            border-top-left-radius: 5px;
-            border-bottom-left-radius: 5px;
-            box-shadow: -2px 2px 3px 1px #333;
-
-            .option-item {
-                height: 40px;
-                line-height: 40px;
-                padding-left: 10px;
-                border-bottom: 1px solid rgba(0,0,0,0.1);
-
-                span {
-                    position: relative;
-                    top: -2px;
-                }
-            }
-        }
-    }
+<style lang="scss">
     .con-header {
-        height: 150px;
+        height: 130px;
         padding: 10px;
         border-bottom: 1px solid rgba(0,0,0,0.1);
 
@@ -337,13 +186,51 @@
             }
         }
     }
-    .con-article {
+    .con-read {
         height: auto;
         padding: 20px;
         overflow: auto;
 
         p {
             text-indent: 2em;
+        }
+        .image-package {
+            padding-bottom: 25px;
+            /*width: 320;*/
+            text-align: center;
+
+            .image-container {
+                background-color: transparent;
+                z-index: 100;
+                position: relative;
+                transition: background-color 0.1s linear;
+                margin: 0 auto;
+            }
+            .image-container-fill {
+                z-index: 50;
+            }
+            .image-view {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+
+                img {
+                    display: block;
+                    transition: all .15s linear;
+                    z-index: 100;
+                    -webkit-filter: blur(0);
+                    filter: blur(0);
+                    opacity: 1;
+                    max-width: 100%;
+                    height: auto;
+                    vertical-align: middle;
+                    border: 0;
+                    cursor: -webkit-zoom-in;
+                }
+            }
         }
     }
     .con-comment {

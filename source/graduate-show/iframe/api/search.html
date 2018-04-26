@@ -512,7 +512,7 @@ vertical-align:1px;
 <h4 id="-">前端请求</h4>
 <ul>
 <li>请求地址：</li><li>请求方式：POST</li><li>请求参数：</li></ul>
-<pre><code class="lang-JS">jehcd: &quot;879646529&quot;
+<pre><code class="lang-JS">jehcd: &quot;879646529&quot;  // 用户账号（搜索者）
 </code></pre>
 <h4 id="-">后台响应</h4>
 <ul>
@@ -522,8 +522,13 @@ vertical-align:1px;
     &quot;code&quot;: &quot;1&quot;,
     &quot;msg&quot;: &quot;&quot;,
     &quot;data&quot;: [
-        { &quot;name&quot;: &quot;区块链&quot; },
-        { &quot;name&quot;: &quot;原型设计&quot; }
+        { 
+            &quot;id&quot;: &#39;879646529180411201435&#39;,
+            &quot;name&quot;: &quot;区块链&quot; 
+        }, { 
+            &quot;id&quot;: &quot;879646529180411211435&quot;,
+            &quot;name&quot;: &quot;原型设计&quot; 
+        }
     ]
 }
 
@@ -538,10 +543,12 @@ vertical-align:1px;
 <h4 id="-">前端请求</h4>
 <ul>
 <li>请求地址：</li><li>请求方式：POST</li><li>请求参数：无/指定搜索记录号</li></ul>
-<pre><code class="lang-JS">uejsh: &quot;879646529180411160134&quot;
-yehjc: &quot;879646529&quot;
+<pre><code class="lang-JS">uejsh: &quot;879646529180411160134&quot; // 搜索记录号
+yehjc: &quot;879646529&quot;             // 用户账号（搜索者）
 </code></pre>
-<p>【说明】：当不指定搜索记录号时（也就是前端不传递参数），此时表示清除当前用户所有搜索记录。</p>
+<p>【说明】：</p>
+<ul>
+<li>当不指定搜索记录号时（也就是前端不传递参数），此时表示清除当前用户所有搜索记录。根据前端传递的用户账号，将该用户的搜索记录都删除。</li><li>指定搜索记录号时，此时表示清除指定搜索记录。根据前端传递的搜索记录号检索指定的记录，然后删除它。</li></ul>
 <h4 id="-">后台响应</h4>
 <ul>
 <li>对应数据表：yhissearch</li><li>响应内容：</li></ul>
@@ -632,7 +639,7 @@ yehjc: &quot;879646529&quot;
                 &quot;countLike&quot;: 5221,
                 &quot;countRead&quot;: 25340
             }, {
-                &quot;id&quot;: &quot;879646528180323135935&quot;,
+                &quot;id&quot;: &quot;879646528180306145424&quot;,
                 &quot;sid&quot;: 1,
                 &quot;subjectName&quot;: &quot;旅游&quot;,
                 &quot;title&quot;: &quot;来一场说走就走的旅行&quot;,
@@ -672,7 +679,8 @@ irksh: 10         // 已获取记录数
 <p>【说明】：判断条件同<strong>初始检索</strong>。</p>
 <h4 id="-">后台响应</h4>
 <ul>
-<li>对应视图：view_user</li><li>响应内容：</li></ul>
+<li>对应视图：view_user、view_article</li><li>响应内容：</li></ul>
+<p>【说明】：这部分的数据获取有些麻烦，需要先根据前端传递的检索内容对用户昵称进行模糊查询，然后再根据前一步获取的用户昵称（是一个数组），循环获取每一个用户所对应的两篇（若没有两篇，则有多少获取多少），组合成以下格式并返回。</p>
 <pre><code class="lang-JS">{
     &quot;code&quot;: &quot;1&quot;,
     &quot;msg&quot;: &quot;&quot;,
@@ -680,19 +688,59 @@ irksh: 10         // 已获取记录数
         {
             &quot;account&quot;: &quot;100001&quot;,
             &quot;nickname&quot;: &quot;区块链&quot;,
-            &quot;head&quot;: &quot;kaiyan/head/100001.jpg&quot;
+            &quot;head&quot;: &quot;kaiyan/head/100001.jpg&quot;,
+            &quot;brief&quot;: &quot;区块链教学&quot;,
+            &quot;article&quot;: [
+                {
+                    &quot;title&quot;: &quot;何为区块链&quot;,
+                    &quot;id&quot;: &quot;100001180421143463&quot;
+                }, {
+                    &quot;title&quot;: &quot;区块链&quot;,
+                    &quot;id&quot;: &quot;100001180421285232&quot;
+                }
+            ]
         }, {
             &quot;account&quot;: &quot;100002&quot;,
             &quot;nickname&quot;: &quot;区块链2&quot;,
-            &quot;head&quot;: &quot;kaiyan/head/100002.jpg&quot;
+            &quot;head&quot;: &quot;kaiyan/head/100002.jpg&quot;,
+            &quot;brief&quot;: &quot;区块链教学&quot;,
+            &quot;article&quot;: [
+                {
+                    &quot;title&quot;: &quot;何为区块链&quot;,
+                    &quot;id&quot;: &quot;100001180421143463&quot;
+                }, {
+                    &quot;title&quot;: &quot;区块链&quot;,
+                    &quot;id&quot;: &quot;100001180421285232&quot;
+                }
+            ]
         }, {
             &quot;account&quot;: &quot;100003&quot;,
             &quot;nickname&quot;: &quot;区块链3&quot;,
-            &quot;head&quot;: &quot;kaiyan/head/100003.jpg&quot;
+            &quot;head&quot;: &quot;kaiyan/head/100003.jpg&quot;,
+            &quot;brief&quot;: &quot;区块链教学&quot;,
+            &quot;article&quot;: [
+                {
+                    &quot;title&quot;: &quot;何为区块链&quot;,
+                    &quot;id&quot;: &quot;100001180421143463&quot;
+                }, {
+                    &quot;title&quot;: &quot;区块链&quot;,
+                    &quot;id&quot;: &quot;100001180421285232&quot;
+                }
+            ]
         }, {
             &quot;account&quot;: &quot;100004&quot;,
             &quot;nickname&quot;: &quot;区块链4&quot;,
-            &quot;head&quot;: &quot;kaiyan/head/100004.jpg&quot;
+            &quot;head&quot;: &quot;kaiyan/head/100004.jpg&quot;,
+            &quot;brief&quot;: &quot;区块链教学&quot;,
+            &quot;article&quot;: [
+                {
+                    &quot;title&quot;: &quot;何为区块链&quot;,
+                    &quot;id&quot;: &quot;100001180421143463&quot;
+                }, {
+                    &quot;title&quot;: &quot;区块链&quot;,
+                    &quot;id&quot;: &quot;100001180421285232&quot;
+                }
+            ]
         }, {
             ...
         }
@@ -713,8 +761,8 @@ irksh: 10         // 已获取记录数
 <h4 id="-">前端请求</h4>
 <ul>
 <li>请求地址：</li><li>请求方式：POST</li><li>请求参数：</li></ul>
-<pre><code class="lang-JS">hwjco: &quot;区块链&quot;,  // 检索内容
-irksh: 10         // 已获取专题数
+<pre><code class="lang-JS">iyscf: &quot;区块链&quot;,  // 检索内容
+wqefs: 10         // 已获取专题数
 </code></pre>
 <p>【说明】：判断条件同<strong>初始检索</strong>。</p>
 <h4 id="-">后台响应</h4>
@@ -727,19 +775,31 @@ irksh: 10         // 已获取专题数
         {
             &quot;id&quot;: &quot;123&quot;
             &quot;name&quot;: &quot;区块链&quot;,
-            &quot;thumbnail&quot;: &quot;kaiyan/thumbnail/123.jpg&quot;
+            &quot;thumbnail&quot;: &quot;kaiyan/thumbnail/123.jpg&quot;,
+            &quot;brief&quot;: &quot;关于区块链的一些介绍&quot;,
+            &quot;countArticle&quot;: 2,
+            &quot;countFocus&quot;: 127
         }, {
             &quot;id&quot;: &quot;124&quot;
             &quot;name&quot;: &quot;区块链2&quot;,
-            &quot;thumbnail&quot;: &quot;kaiyan/thumbnail/124.jpg&quot;
+            &quot;thumbnail&quot;: &quot;kaiyan/thumbnail/124.jpg&quot;,
+            &quot;brief&quot;: &quot;关于区块链的一些介绍&quot;,
+            &quot;countArticle&quot;: 2,
+            &quot;countFocus&quot;: 127
         }, {
             &quot;id&quot;: &quot;125&quot;
             &quot;name&quot;: &quot;区块链3&quot;,
-            &quot;thumbnail&quot;: &quot;kaiyan/thumbnail/125.jpg&quot;
+            &quot;thumbnail&quot;: &quot;kaiyan/thumbnail/125.jpg&quot;,
+            &quot;brief&quot;: &quot;关于区块链的一些介绍&quot;,
+            &quot;countArticle&quot;: 2,
+            &quot;countFocus&quot;: 127
         }, {
             &quot;id&quot;: &quot;126&quot;
             &quot;name&quot;: &quot;区块链4&quot;,
-            &quot;thumbnail&quot;: &quot;kaiyan/thumbnail/126.jpg&quot;
+            &quot;thumbnail&quot;: &quot;kaiyan/thumbnail/126.jpg&quot;,
+            &quot;brief&quot;: &quot;关于区块链的一些介绍&quot;,
+            &quot;countArticle&quot;: 2,
+            &quot;countFocus&quot;: 127
         }, {
             ...
         }

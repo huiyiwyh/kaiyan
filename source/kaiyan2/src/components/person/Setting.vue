@@ -6,19 +6,19 @@
                 <section class="setting-item">
                     <h5>常规设置</h5>
                     <ul class="list-group">
-                        <li class="list-group-item clearfix">
+                        <li @click="goTo('personMyHead')" class="list-group-item clearfix">
                             <div class="pull-left">更换头像</div>
-                            <div class="pull-right">
-                                <img src="../../assets/back.jpg" alt="head" />
+                            <div @click.stop="preview()" class="pull-right">
+                                <img :src="config.picUrl + user.head" alt="head" />
                             </div>
                         </li>
                         <li @click="open('.popup-nickname')" class="list-group-item clearfix">
                             <div class="pull-left">更改昵称</div>
-                            <div class="pull-right">游学者、墨槿</div>
+                            <div class="pull-right" v-text="user.nickname"></div>
                         </li>
                         <li  @click="open('.popup-brief')" class="list-group-item clearfix">
                             <div class="pull-left">编辑个人简介</div>
-                            <div class="pull-right">人生不是戏剧，而我亦非主角</div>
+                            <div class="pull-right" v-text="user.brief"></div>
                         </li>
                     </ul>
                 </section>
@@ -57,7 +57,7 @@
                     <form class="popup-form">
                         <div class="popup-form-item">
                             <label class="sr-only" for="nicknameInput">用户昵称</label>
-                            <input id="nicknameInput" type="text" value="游学者、墨槿"/>
+                            <input id="nicknameInput" type="text" v-model="modify.nickname"/>
                         </div>
                     </form>
                     <div class="popup-footer">
@@ -70,7 +70,7 @@
                     <form class="popup-form">
                         <div class="popup-form-item">
                             <label class="sr-only" for="briefInput">个人简介</label>
-                            <textarea id="briefInput" rows="4"></textarea>
+                            <textarea id="briefInput" rows="4" v-model="modify.brief"></textarea>
                         </div>
                     </form>
                     <div class="popup-footer">
@@ -124,6 +124,21 @@
                         <div class="btn-action pull-right">取消</div>
                     </div>
                 </section>
+                <section class="popup popup-head">
+                    <h4 class="popup-header">更换头像</h4>
+
+                    <div class="popup-footer">
+                        <div class="btn-action pull-right">确定</div>
+                        <div class="btn-action pull-right">取消</div>
+                    </div>
+                </section>
+                <section class="popup popup-preview">
+                    <div class="model" v-show="model" @click="model = false">
+                        <div class="model-show">
+                            <img :src="modelSrc" alt="">
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
@@ -140,6 +155,8 @@
         },
         data() {
             return {
+                model: false,
+                modelSrc: "",
                 config: {
                     header: {
                         style: "normal",
@@ -147,14 +164,31 @@
                         title: "编辑个人资料",
                         isSearch: false,
                         isSetting: false
-                    }
+                    },
+                    picUrl: ""
+                },
+                // 用户数据对象
+                user: {},
+                modify: {
+                    nickname: "",
+                    brief: ""
                 }
             }
         },
-        create() {
-//            const Dialog = this.$module.get("Dialog");
-//            Dialog.open(".popup-nickname");
-//            console.log("执行了 Dialog.open");
+        created() {
+            this.config.picUrl = this.$config.picUrl;
+            const user = this.$store.state.user;
+            if(!user.account) {
+                const promise = this.$request.getUserInfo('879646529', '123456');
+                promise.then(data => {
+                    this.user = JSON.parse(data);
+                    this.$store.state.user = JSON.parse(data);
+                }).catch(error => {
+                    console.log(error);
+                })
+            } else {
+                this.user = user;
+            }
         },
         mounted() {
             Dialog = this.$module.get("Dialog");
@@ -168,11 +202,19 @@
                     $target.attr("class", "iconfont icon-closeEye")
                         .prev().attr("type", "password");
                 }
-            })
+            });
         },
         methods: {
-            routerBack() {
-                this.$router.back();
+            preview() {
+                Dialog.open('.popup-preview', {
+                    isCover: true,
+                    width: "80%",
+                    height: 400
+                });
+                // this.$refs.cropper.getCropData((data) => {
+                //     this.model = true;
+                //     this.modelSrc = data;
+                // })
             },
             goTo(page, param) {
                 this.$router.push({
@@ -180,12 +222,28 @@
                     param: param
                 })
             },
+            /**
+             * 开启弹窗
+             * @param con 弹窗容器
+             */
             open(con) {
+                const height = $(con).height() + 40;  // 40 为 padding 值
                 Dialog.open(con, {
                     isCover: true,
                     width: "80%",
-                    height: 200
-                })
+                    height: height
+                });
+                switch(con) {
+                    case ".popup-nickname": {
+                        this.modify.nickname = this.user.nickname;
+                        break;
+                    }
+                    case ".popup-brief": {
+                        this.modify.brief = this.user.brief;
+                        break;
+                    }
+                }
+                console.log(this.modify);
             }
         }
     }
