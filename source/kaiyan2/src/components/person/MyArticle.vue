@@ -35,9 +35,22 @@
                 },
                 article: {
                     type: 'my',
-                    data: article.data
+                    data: []
                 }
             }
+        },
+        created() {
+            const promise = this.$request.getArticleList(2, '879646529', 1, '2018-03-06 14:54', '123456');
+            promise.then(data => {
+                const _data = JSON.parse(data);
+                if(Number(_data.code) === 1) {
+                    this.article.data = _data.data;
+                } else {
+                    console.warn(_data.msg);
+                }
+            }).catch(err => {
+                console.log(err);
+            })
         }
     }
 </script>

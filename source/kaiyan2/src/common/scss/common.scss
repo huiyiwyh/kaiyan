@@ -148,7 +148,6 @@ h1, h2, h3, h4, h5 {
 ::-webkit-scrollbar {
     display: none;
 }
-
 header.normal {
     position: fixed;
     width: 100%;
@@ -176,6 +175,31 @@ header.normal {
     .btn-create {
         font-weight: 400;
         color: #0099cc;
+    }
+    .con-option {
+        width: 120px;
+        height: 80px;
+        position: absolute;
+        top: 40px;
+        right: 0;
+        margin-bottom: -1px;
+        background-color: #fff;
+        border: 1px solid rgba(0,0,0,0.1);
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        box-shadow: -2px 2px 3px 1px #333;
+
+        .option-item {
+            height: 40px;
+            line-height: 40px;
+            padding-left: 10px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+
+            span {
+                position: relative;
+                top: -2px;
+            }
+        }
     }
 }
 header.more {

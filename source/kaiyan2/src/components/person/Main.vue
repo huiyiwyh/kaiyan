@@ -1,7 +1,7 @@
 <template>
     <div>
         <header-temp :config="config.header"></header-temp>
-        <div class="con">
+        <div class="con body">
             <section @click="goTo('personIndex')" class="con-person">
                 <div class="person-head pull-left">
                     <img :src="'http://115.159.59.72/' + user.head" alt="head" />
@@ -89,7 +89,7 @@
             this.config.reqUrl = this.$config.url.person;
             // 若 store 仓库中没有用户信息，则向服务器获取用户信息
             if(!this.$store.state.user.account) {
-                const promise = this.$ajax.get(this.config.reqUrl.getMyInfo, ['jchen=spirit'], '123456');
+                const promise = this.$request.getUserInfo('879646529', '123456');
                 promise.then(data => {
                     this.user = JSON.parse(data);
                     this.$store.state.user = JSON.parse(data);
@@ -99,16 +99,6 @@
             } else {
                 this.user = this.$store.state.user;
             }
-        },
-        mounted: function() {
-            this.$nextTick(function() {
-                const Ajax = Module.get("Ajax");
-//                Ajax.getJSON("data/user.json").then(function(data) {
-//                    console.log(data);
-//                }, function(error) {
-//                    console.error(error);
-//                });
-            })
         },
         methods: {
             goTo(page, param) {

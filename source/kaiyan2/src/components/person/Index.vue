@@ -29,7 +29,7 @@
                 <li class="tab-item" data-slide-to="1">文章</li>
                 <li class="tab-item" data-slide-to="2">更多</li>
             </ul>
-            <div class="swiper-container">
+            <div class="swiper-container" id="tablist">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="tab-action" id="tabAction">
@@ -217,11 +217,7 @@
             console.log(this.$route.params.account);
             this.config.reqUrl = this.$config.url.person;
             this.user = this.$store.state.user;
-            const promiseAction = this.$ajax.get(
-                this.config.reqUrl.getAction,
-                ["nhcjs=879646529", "asxcd=2018-03-05 18:18"],
-                "123456"
-            );
+            const promiseAction = this.$request.getUserAction("879646529", "2018-03-05 18:18", "123456");
             promiseAction.then(resp => {
                 const resp_json = JSON.parse(resp);
                 if(Number(resp_json.code) === 1) {
@@ -246,7 +242,7 @@
                 }
             });
             let _this = this;
-            mySwiper = new Swiper('.swiper-container', {
+            mySwiper = new Swiper('#tablist', {
                 direction: 'horizontal',
                 on: {
                     slideChange: function () {
@@ -256,11 +252,7 @@
                         if(mySwiper.activeIndex === 1) {
                             console.log(_this.article.data.length);
                             if(_this.article.data.length === 0) {
-                                const promiseArticle = _this.$ajax.get(
-                                    _this.config.reqUrl.getArticle,
-                                    ["dhcjs=2", "utysh=1", "idonx=2018-03-05 18:18"],
-                                    "123456"
-                                );
+                                const promiseArticle = _this.$request.getArticleList(2, "", 1, "2018-03-05 18:18", "123456");
                                 promiseArticle.then(resp => {
                                     const resp_json = JSON.parse(resp);
                                     if(Number(resp_json.code) === 1) {

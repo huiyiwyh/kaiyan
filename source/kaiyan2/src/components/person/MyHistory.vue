@@ -1,7 +1,9 @@
 <template>
     <div>
         <header-temp :config="config.header"></header-temp>
-        <article-temp :article="article"></article-temp>
+        <div class="body">
+            <article-temp :article="article"></article-temp>
+        </div>
     </div>
 </template>
 
@@ -30,9 +32,27 @@
                 },
                 article: {
                     type: "other",
-                    data: article.data
+                    data: []
                 }
             }
+        },
+        created() {
+            this.getData();
+        },
+        methods: {
+            getData() {
+                const promise = this.$request.getUserHistory('879646529', 0, '123456');
+                promise.then(data => {
+                    const resp = JSON.parse(data);
+                    if(Number(resp.code) === 1) {
+                        this.article.data = resp.data;
+                    } else {
+                        console.warn(resp.msg);
+                    }
+                }).catch(err => {
+                    console.log(err);
+                })
+            },
         }
     }
 </script>
